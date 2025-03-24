@@ -5,6 +5,7 @@ export const Colors = {
   light: {
     background: '#fff',
     text: '#11181C',
+    dangerText: '#D72222',
 
     tint: tintColorLight,
     icon: '#687076',
@@ -24,6 +25,7 @@ export const Colors = {
   dark: {
     background: '#121212',
     text: '#ECEDEE',
+    dangerText: '#9c2c2c',
 
     tint: tintColorDark,
     icon: '#9BA1A6',

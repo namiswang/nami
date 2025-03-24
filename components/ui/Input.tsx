@@ -48,8 +48,11 @@ const Input = forwardRef<TextInput, InputProps>(({
 }, ref) => {
   const [isSecureTextEntry, setIsSecureTextEntry] = useState(secure)
   const [inputValue, setInputValue] = useState(value || '')
+  const [isFocused, setIsFocused] = useState(false)
 
-  const [iconColor, tint] = useThemeColors(['icon', 'tint'])
+  const [iconColor, text] = useThemeColors(['icon', 'text'])
+
+  const [dangerText] = useThemeColors(['dangerText'])
 
   const showClearButton = clearable && inputValue.length > 0
 
@@ -73,7 +76,8 @@ const Input = forwardRef<TextInput, InputProps>(({
       )}
       <View style={[
         styles.inputContainer,
-        error ? styles.inputError : null
+        isFocused && { borderColor: 'rgb(228, 230, 233)' },
+        error && { borderColor: dangerText }
       ]}>
         {prefix && (
           <IconSymbol
@@ -86,18 +90,19 @@ const Input = forwardRef<TextInput, InputProps>(({
         <TextInput
           ref={ref}
           style={[
-            { color: tint },
+            { color: text },
             styles.input,
             prefix && styles.inputWithLeftIcon,
             (suffix || showClearButton || secure) && styles.inputWithRightIcon,
             inputStyle
           ]}
-
-          placeholder={placeholder}
-          placeholderTextColor="#999"
+          placeholder={error ? error : placeholder}
+          placeholderTextColor={error ? dangerText : '#999'}
           secureTextEntry={isSecureTextEntry}
           value={inputValue}
           onChangeText={handleChangeText}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           {...rest}
         />
         <View style={styles.rightIconContainer}>
@@ -139,11 +144,6 @@ const Input = forwardRef<TextInput, InputProps>(({
           )}
         </View>
       </View>
-      {error && (
-        <Text style={[styles.error, errorStyle]}>
-          {error}
-        </Text>
-      )}
     </View>
   )
 })
@@ -191,13 +191,5 @@ const styles = StyleSheet.create({
   suffix: {
     padding: 4,
     marginLeft: 4
-  },
-  inputError: {
-    borderColor: '#ff3b30'
-  },
-  error: {
-    fontSize: 12,
-    color: '#ff3b30'
-    // marginTop: 4
   }
 })
