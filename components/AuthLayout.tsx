@@ -9,8 +9,8 @@ import {
 import { useEffect, useRef, ReactNode, useCallback } from 'react'
 import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
+import { JView } from '@/components/ui/JView'
+import { JText } from '@/components/ui/JText'
 
 interface Props {
   children: ReactNode
@@ -63,21 +63,21 @@ export function AuthLayout({ children, title }: Props) {
   })
 
   return (
-    <ThemedView style={{ flex: 1 }}>
+    <JView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ThemedView style={styles.container}>
+        <JView style={styles.container}>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
             <Image
               source={require('@/assets/images/logo.gif')}
               style={styles.logo}
               resizeMode="contain"
             />
-            <ThemedText style={styles.title}>{title}</ThemedText>
+            <JText style={styles.title}>{title}</JText>
             {children}
           </Animated.View>
-        </ThemedView>
+        </JView>
       </TouchableWithoutFeedback>
-    </ThemedView>
+    </JView>
   )
 }
 

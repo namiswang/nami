@@ -2,9 +2,9 @@ import { useState, useRef } from 'react'
 import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout, styles } from '@/components/AuthLayout'
-import Button from '@/components/ui/Button'
-import Input from '@/components/ui/Input'
-import Message from '@/components/ui/Toast'
+import Button from '@/components/ui/JButton'
+import JInput from '@/components/ui/JInput'
+import Message from '@/components/ui/JToast'
 
 export default function Identify() {
   const [username, setUsername] = useState('')
@@ -27,7 +27,7 @@ export default function Identify() {
 
   return (
     <AuthLayout title={t('login.title')}>
-      <Input
+      <JInput
         ref={inputRef}
         value={username}
         onChange={setUsername}
