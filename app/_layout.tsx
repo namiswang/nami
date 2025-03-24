@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import Toast from 'react-native-toast-message'
 import { CustomToast } from '@/components/ui/Toast'
-import { useColorScheme } from '@/hooks/useColorScheme'
+import { useColorScheme } from 'react-native'
 import '../i18n'
 
 // 防止启动画面在资产加载完成之前自动隐藏。

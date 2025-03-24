@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native'
 import { t } from 'i18next'
+import { useThemeColor, useThemeColors } from '@/hooks/useThemeColor'
 
 interface ButtonProps {
   type?: 'normal' | 'primary' | 'danger'
@@ -25,13 +26,43 @@ export default function ({
   loadingText = t('login.buttonLoadingText'),
   disabled = false
 }: ButtonProps) {
+  const [
+    buttonBorder,
+    normalButtonText,
+    normalButtonBackground,
+    primaryButtonText,
+    primaryButtonBackground,
+    dangerButtonBackground,
+    dangerButtonText
+  ] = useThemeColors([
+    'buttonBorder',
+    'normalButtonText',
+    'normalButtonBackground',
+    'primaryButtonText',
+    'primaryButtonBackground',
+    'dangerButtonBackground',
+    'dangerButtonText'
+  ])
+
+  const backgroundColor = {
+    normal: normalButtonBackground,
+    primary: primaryButtonBackground,
+    danger: dangerButtonBackground
+  }[type]
+
+  const textColor = {
+    normal: normalButtonText,
+    primary: primaryButtonText,
+    danger: dangerButtonText
+  }[type]
+
   const isDisabled = loading || disabled
 
   return (
     <TouchableOpacity
       style={[
+        { backgroundColor, borderColor: buttonBorder },
         styles.button,
-        styles[`${type}Button`],
         isDisabled && styles.disabledButton,
         style,
         width ? { width } : {}
@@ -44,8 +75,8 @@ export default function ({
     >
       <Text
         style={[
+          { color: textColor },
           styles.buttonText,
-          styles[`${type}Text`],
           isDisabled && styles.disabledText,
           textStyle
         ]}
@@ -54,13 +85,13 @@ export default function ({
           <View style={styles.loadingButton}>
             <ActivityIndicator
               size="small"
-              color={styles[`${type}Text`].color}
+              color={`${type}ButtonText`}
               style={styles.loader}
             />
             <Text
               style={[
-                styles.loadingText,
-                { color: styles[`${type}Text`].color }
+                { color: `${type}ButtonText` },
+                styles.loadingText
               ]}
             >
               {loadingText}
@@ -74,13 +105,15 @@ export default function ({
 
 const styles = StyleSheet.create({
   button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
     padding: 15,
+    borderWidth: 1,
+    borderStyle: 'solid',
     borderRadius: 8,
-    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    flexDirection: 'row',
-    justifyContent: 'center'
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
   },
   buttonText: {
     fontSize: 14,
@@ -110,27 +143,6 @@ const styles = StyleSheet.create({
 
   // normal
   normalButton: {
-    borderWidth: 1,
-    borderColor: '#E3E3E3',
-    backgroundColor: '#FFFFFF'
-  },
-  normalText: {
-    color: '#0D0D0D'
-  },
-
-  // primary
-  primaryButton: {
-    backgroundColor: '#171719'
-  },
-  primaryText: {
-    color: '#fff'
-  },
-
-  // danger
-  dangerButton: {
-    backgroundColor: '#D41625'
-  },
-  dangerText: {
-    color: '#fff'
+    borderWidth: 1
   }
 })

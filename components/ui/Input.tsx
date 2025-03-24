@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   TextInputProps
 } from 'react-native'
-import { IconSymbol } from './IconSymbol'
-import { SFSymbols6_0 } from 'sf-symbols-typescript'
+import { IconSymbol, IconSymbolName } from './IconSymbol'
+import { useThemeColors } from '@/hooks/useThemeColor'
 
 interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   label?: string
@@ -19,8 +19,8 @@ interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   inputStyle?: TextStyle
   labelStyle?: TextStyle
   errorStyle?: TextStyle
-  prefix?: SFSymbols6_0
-  suffix?: SFSymbols6_0
+  prefix?: IconSymbolName
+  suffix?: IconSymbolName
   onRightIconPress?: () => void
   secure?: boolean // 密码框
   clearable?: boolean
@@ -48,6 +48,8 @@ const Input = forwardRef<TextInput, InputProps>(({
 }, ref) => {
   const [isSecureTextEntry, setIsSecureTextEntry] = useState(secure)
   const [inputValue, setInputValue] = useState(value || '')
+
+  const [iconColor, tint] = useThemeColors(['icon', 'tint'])
 
   const showClearButton = clearable && inputValue.length > 0
 
@@ -77,18 +79,20 @@ const Input = forwardRef<TextInput, InputProps>(({
           <IconSymbol
             name={prefix}
             size={20}
-            color="#999"
+            color={iconColor}
             style={styles.prefix}
           />
         )}
         <TextInput
           ref={ref}
           style={[
+            { color: tint },
             styles.input,
             prefix && styles.inputWithLeftIcon,
             (suffix || showClearButton || secure) && styles.inputWithRightIcon,
             inputStyle
           ]}
+
           placeholder={placeholder}
           placeholderTextColor="#999"
           secureTextEntry={isSecureTextEntry}
@@ -103,9 +107,9 @@ const Input = forwardRef<TextInput, InputProps>(({
               onPress={handleClear}
             >
               <IconSymbol
-                name='xmark.circle.fill'
+                name="xmark.circle.fill"
                 size={20}
-                color="#999"
+                color={iconColor}
               />
             </TouchableOpacity>
           )}
@@ -117,7 +121,7 @@ const Input = forwardRef<TextInput, InputProps>(({
               <IconSymbol
                 name={(isSecureTextEntry ? 'eye.fill' : 'eye.slash.fill')}
                 size={20}
-                color="#999"
+                color={iconColor}
               />
             </TouchableOpacity>
           )}
@@ -129,7 +133,7 @@ const Input = forwardRef<TextInput, InputProps>(({
               <IconSymbol
                 name={suffix}
                 size={20}
-                color="#999"
+                color={iconColor}
               />
             </TouchableOpacity>
           )}
@@ -153,23 +157,22 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333',
     marginBottom: 8
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderWidth: 0.5,
     borderRadius: 8,
-    backgroundColor: '#f8f8f8',
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+    borderColor: 'rgba(228, 230, 233, 0.5)',
+    borderStyle: 'solid'
   },
   input: {
     flex: 1,
     height: 44,
     fontSize: 16,
-    color: '#333',
     padding: 0
   },
   inputWithLeftIcon: {
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
   },
   error: {
     fontSize: 12,
-    color: '#ff3b30',
-    marginTop: 4
+    color: '#ff3b30'
+    // marginTop: 4
   }
 })

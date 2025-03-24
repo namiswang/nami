@@ -1,15 +1,16 @@
 import {
-  View,
-  Text,
   StyleSheet,
   Platform,
   Animated,
   TouchableWithoutFeedback,
-  Keyboard, Image
+  Keyboard,
+  Image
 } from 'react-native'
 import { useEffect, useRef, ReactNode, useCallback } from 'react'
 import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+import { ThemedView } from '@/components/ThemedView'
+import { ThemedText } from '@/components/ThemedText'
 
 interface Props {
   children: ReactNode
@@ -62,26 +63,27 @@ export function AuthLayout({ children, title }: Props) {
   })
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
-          <Image
-            source={require('@/assets/images/logo.gif')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.title}>{title}</Text>
-          {children}
-        </Animated.View>
-      </View>
-    </TouchableWithoutFeedback>
+    <ThemedView style={{ flex: 1 }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ThemedView style={styles.container}>
+          <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
+            <Image
+              source={require('@/assets/images/logo.gif')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <ThemedText style={styles.title}>{title}</ThemedText>
+            {children}
+          </Animated.View>
+        </ThemedView>
+      </TouchableWithoutFeedback>
+    </ThemedView>
   )
 }
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff'
+    flex: 1
   },
   scrollContent: {
     flex: 1,
