@@ -28,7 +28,7 @@ interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   onChange?: (text: string) => void
 }
 
-const JInput = forwardRef<TextInput, InputProps>(({
+export const JInput = forwardRef<TextInput, InputProps>(({
   label,
   error,
   containerStyle,
@@ -147,8 +147,6 @@ const JInput = forwardRef<TextInput, InputProps>(({
     </View>
   )
 })
-
-export default JInput
 
 const styles = StyleSheet.create({
   container: {

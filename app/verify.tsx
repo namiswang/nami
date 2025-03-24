@@ -2,9 +2,9 @@ import { useRef, useState } from 'react'
 import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from '@/components/AuthLayout'
-import Button from '@/components/ui/JButton'
-import JInput from '@/components/ui/JInput'
-import Message from '@/components/ui/JToast'
+import { JButton } from '@/components/ui/JButton'
+import { JInput } from '@/components/ui/JInput'
+import { JMessage } from '@/components/ui/JToast'
 
 export default function Verify() {
   const [password, setPassword] = useState('')
@@ -15,11 +15,11 @@ export default function Verify() {
 
   const continueHandler = () => {
     if (!password) {
-      Message.error('请输入密码')
+      JMessage.error('请输入密码')
       inputRef.current?.focus()
       return
     }
-    router.push('/(tabs)')
+    router.replace('/(tabs)')
   }
 
   return (
@@ -32,13 +32,13 @@ export default function Verify() {
         secure
       />
 
-      <Button
+      <JButton
         type="primary"
         text={t('login.continue')}
         onPress={continueHandler}
       />
 
-      <Button
+      <JButton
         text={t('login.back')}
         onPress={router.back}
       />

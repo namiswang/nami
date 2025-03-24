@@ -15,7 +15,7 @@ interface ButtonProps {
   disabled?: boolean
 }
 
-export default function ({
+export function JButton({
   type = 'normal',
   text,
   width,

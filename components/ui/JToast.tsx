@@ -1,26 +1,25 @@
 import React from 'react'
 import Toast from 'react-native-toast-message'
 import { View, Text, StyleSheet } from 'react-native'
-import { IconSymbol } from './IconSymbol'
-import { SFSymbols6_0 } from 'sf-symbols-typescript'
+import { IconSymbol, IconSymbolName } from './IconSymbol'
 import { ToastShowParams } from 'react-native-toast-message/lib/src/types'
 
 const config = {
   success: {
     backgroundColor: 'rgba(52, 199, 89, 0.9)',
-    icon: 'checkmark.circle.fill' as SFSymbols6_0
+    icon: 'checkmark.circle.fill'
   },
   error: {
     backgroundColor: 'rgba(255, 59, 48, 0.9)',
-    icon: 'xmark.circle.fill' as SFSymbols6_0
+    icon: 'xmark.circle.fill'
   },
   warning: {
     backgroundColor: 'rgba(255, 149, 0, 0.9)',
-    icon: 'exclamationmark.triangle.fill' as SFSymbols6_0
+    icon: 'exclamationmark.triangle.fill'
   },
   info: {
     backgroundColor: 'rgba(0, 122, 255, 0.9)',
-    icon: 'info.circle.fill' as SFSymbols6_0
+    icon: 'info.circle.fill'
   }
 }
 
@@ -28,11 +27,11 @@ interface CustomToastProps {
   text1: string
   props: {
     backgroundColor: string
-    icon: SFSymbols6_0
+    icon: IconSymbolName
   }
 }
 
-export default class Message {
+export class JMessage {
   static show(
     message: string,
     type: 'success' | 'error' | 'warning' | 'info' = 'info',

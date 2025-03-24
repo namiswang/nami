@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
 import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { AuthLayout, styles } from '@/components/AuthLayout'
-import Button from '@/components/ui/JButton'
-import JInput from '@/components/ui/JInput'
-import Message from '@/components/ui/JToast'
+import { AuthLayout } from '@/components/AuthLayout'
+import { JButton } from '@/components/ui/JButton'
+import { JInput } from '@/components/ui/JInput'
+import { JMessage } from '@/components/ui/JToast'
 
 export default function Identify() {
   const [username, setUsername] = useState('')
@@ -15,7 +15,7 @@ export default function Identify() {
 
   const continueHandler = () => {
     if (!username) {
-      Message.error('请输入用户名')
+      JMessage.error('请输入用户名')
       inputRef.current?.focus()
       return
     }
@@ -34,7 +34,7 @@ export default function Identify() {
         placeholder={t('login.username')}
       />
 
-      <Button
+      <JButton
         type="primary"
         text={t('login.continue')}
         onPress={continueHandler}
