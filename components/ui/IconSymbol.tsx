@@ -3,6 +3,7 @@ import { OpaqueColorValue, StyleProp, ViewStyle } from 'react-native'
 import { SymbolWeight } from 'expo-symbols'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { IconMapping } from '@/constants/IconMapping'
+import { useColor } from '@/hooks/useColor'
 
 export type IconSymbolName = keyof typeof IconMapping;
 
@@ -18,12 +19,14 @@ export function IconSymbol({
 }: {
   name: IconSymbolName;
   size?: number;
-  color: string | OpaqueColorValue;
+  color?: string | OpaqueColorValue;
   style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
+  const textColor = useColor('text')
+
   return <MaterialIcons
-    color={color}
+    color={color || textColor}
     size={size}
     name={IconMapping[name]}
     style={style as any}

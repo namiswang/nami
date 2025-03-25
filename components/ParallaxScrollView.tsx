@@ -6,9 +6,9 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset
 } from 'react-native-reanimated'
-import { useColorScheme } from 'react-native'
 import { JView } from '@/components/ui/JView'
 import { useBottomTabOverflow } from '@/components/ui/TabBarBackground'
+import { useSettingStore } from '@/store'
 
 const HEADER_HEIGHT = 250
 
@@ -22,7 +22,7 @@ export default function ParallaxScrollView({
   headerImage,
   headerBackgroundColor
 }: Props) {
-  const colorScheme = useColorScheme() ?? 'light'
+  const { mode } = useSettingStore()
   const scrollRef = useAnimatedRef<Animated.ScrollView>()
   const scrollOffset = useScrollViewOffset(scrollRef)
   const bottom = useBottomTabOverflow()
@@ -53,7 +53,7 @@ export default function ParallaxScrollView({
         <Animated.View
           style={[
             styles.header,
-            { backgroundColor: headerBackgroundColor[colorScheme] },
+            { backgroundColor: headerBackgroundColor[mode] },
             headerAnimatedStyle
           ]}>
           {headerImage}
