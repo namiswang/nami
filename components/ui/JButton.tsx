@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native'
 import { t } from 'i18next'
-import { useThemeColors } from '@/hooks/useThemeColor'
+import { useColors } from '@/hooks/useColor'
 import { JText } from '@/components/ui/JText'
 
 interface ButtonProps {
@@ -35,7 +35,7 @@ export function JButton({
     primaryButtonBackground,
     dangerButtonBackground,
     dangerButtonText
-  ] = useThemeColors([
+  ] = useColors([
     'buttonBorder',
     'normalButtonText',
     'normalButtonBackground',

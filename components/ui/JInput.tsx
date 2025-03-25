@@ -9,7 +9,7 @@ import {
   TextInputProps
 } from 'react-native'
 import { IconSymbol, IconSymbolName } from './IconSymbol'
-import { useThemeColors } from '@/hooks/useThemeColor'
+import { useColors } from '@/hooks/useColor'
 import { JText } from '@/components/ui/JText'
 
 interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
@@ -50,9 +50,7 @@ export const JInput = forwardRef<TextInput, InputProps>(({
   const [inputValue, setInputValue] = useState(value || '')
   const [isFocused, setIsFocused] = useState(false)
 
-  const [iconColor, text] = useThemeColors(['icon', 'text'])
-
-  const [dangerText] = useThemeColors(['dangerText'])
+  const [iconColor, text, dangerText] = useColors(['icon', 'text', 'dangerText'])
 
   const showClearButton = clearable && inputValue.length > 0
 

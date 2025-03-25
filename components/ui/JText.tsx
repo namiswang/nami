@@ -1,6 +1,5 @@
 import { Text, type TextProps } from 'react-native'
-
-import { useThemeColors } from '@/hooks/useThemeColor'
+import { useColor } from '@/hooks/useColor'
 
 export type ThemedTextProps = TextProps & {
   size?: number
@@ -29,7 +28,7 @@ export function JText({
   marginRight = undefined,
   ...rest
 }: ThemedTextProps) {
-  const [color] = useThemeColors(['text'])
+  const color = useColor('text')
 
   return (
     <Text

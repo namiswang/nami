@@ -1,7 +1,7 @@
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from 'react-native'
 
-export function useThemeColor(
+export function useColor(
   name: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
   const theme = useColorScheme() ?? 'light'
@@ -9,7 +9,7 @@ export function useThemeColor(
   return curColors[name]
 }
 
-export function useThemeColors(
+export function useColors(
   names: (keyof typeof Colors.light & keyof typeof Colors.dark)[]
 ) {
   const theme = useColorScheme() ?? 'light'
