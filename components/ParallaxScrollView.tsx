@@ -6,10 +6,9 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset
 } from 'react-native-reanimated'
-
-import { ThemedView } from '@/components/ThemedView'
+import { useColorScheme } from 'react-native'
+import { JView } from '@/components/ui/JView'
 import { useBottomTabOverflow } from '@/components/ui/TabBarBackground'
-import { useColorScheme } from '@/hooks/useColorScheme'
 
 const HEADER_HEIGHT = 250
 
@@ -45,7 +44,7 @@ export default function ParallaxScrollView({
   })
 
   return (
-    <ThemedView style={styles.container}>
+    <JView themed style={styles.container}>
       <Animated.ScrollView
         ref={scrollRef}
         scrollEventThrottle={16}
@@ -59,9 +58,9 @@ export default function ParallaxScrollView({
           ]}>
           {headerImage}
         </Animated.View>
-        <ThemedView style={styles.content}>{children}</ThemedView>
+        <JView themed style={styles.content}>{children}</JView>
       </Animated.ScrollView>
-    </ThemedView>
+    </JView>
   )
 }
 

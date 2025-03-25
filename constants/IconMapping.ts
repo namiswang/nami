@@ -2,7 +2,7 @@ import React from 'react'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 // See MaterialIcons here: https://icons.expo.fyi
-export default {
+export const IconMapping = {
   'house.fill': 'home',
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',

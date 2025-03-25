@@ -6,8 +6,8 @@ import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import Toast from 'react-native-toast-message'
-import { CustomToast } from '@/components/ui/Toast'
-import { useColorScheme } from '@/hooks/useColorScheme'
+import { CustomToast } from '@/components/ui/JToast'
+import { useColorScheme } from 'react-native'
 import '../i18n'
 
 // 防止启动画面在资产加载完成之前自动隐藏。
@@ -32,14 +32,10 @@ export default function RootLayout() {
 
   // 切换页面关闭当前页面的提示
   useEffect(() => {
-    return navigationRef.addListener('state', () => {
-      Toast.hide()
-    })
+    return navigationRef.addListener('state', () => Toast.hide())
   }, [navigationRef])
 
-  if (!loaded) {
-    return null
-  }
+  if (!loaded) return null
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -49,8 +45,11 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
+
       <Redirect href="/identify" />
+
+      <StatusBar style="auto" />
+
       <Toast config={toastConfig} />
     </ThemeProvider>
   )

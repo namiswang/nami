@@ -1,44 +1,51 @@
 import { useRef, useState } from 'react'
-import { router } from 'expo-router'
+import { TextInput } from 'react-native'
+import { router, useLocalSearchParams } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from '@/components/AuthLayout'
-import Button from '@/components/ui/Button'
-import Input from '@/components/ui/Input'
-import Message from '@/components/ui/Toast'
+import { JButton } from '@/components/ui/JButton'
+import { JInput } from '@/components/ui/JInput'
 
 export default function Verify() {
   const [password, setPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
-  const inputRef = useRef<any>(null)
+  const inputRef = useRef<TextInput>(null)
 
   const { t } = useTranslation()
+  const {username} = useLocalSearchParams()
 
   const continueHandler = () => {
     if (!password) {
-      Message.error('请输入密码')
+      setErrorMsg(t('login.verifyTip'))
       inputRef.current?.focus()
       return
     }
-    router.push('/(tabs)')
+    console.log(11111, 'username', username)
+    router.replace('/(tabs)')
   }
 
   return (
     <AuthLayout title={t('login.title')}>
-      <Input
+      <JInput
         ref={inputRef}
-        value={password}
-        onChange={setPassword}
-        placeholder={t('login.password')}
         secure
+        value={password}
+        onChange={(value) => {
+          setPassword(value)
+          setErrorMsg(undefined)
+        }}
+        placeholder={t('login.password')}
+        error={errorMsg}
       />
 
-      <Button
+      <JButton
         type="primary"
         text={t('login.continue')}
         onPress={continueHandler}
       />
 
-      <Button
+      <JButton
         text={t('login.back')}
         onPress={router.back}
       />

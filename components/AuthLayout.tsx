@@ -1,25 +1,33 @@
 import {
-  View,
-  Text,
   StyleSheet,
   Platform,
   Animated,
   TouchableWithoutFeedback,
-  Keyboard, Image
+  Keyboard,
+  Image,
+  useColorScheme
 } from 'react-native'
-import { useEffect, useRef, ReactNode, useCallback } from 'react'
+import { useState, useEffect, useRef, ReactNode, useCallback } from 'react'
 import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+import { JView } from '@/components/ui/JView'
+import { JText } from '@/components/ui/JText'
 
 interface Props {
   children: ReactNode
   title: string
 }
 
+/** 登陆注册layout */
 export function AuthLayout({ children, title }: Props) {
+  const [logo, setLogo] = useState(require('@/assets/images/logo-light.gif'))
+
   const scrollY = useRef(new Animated.Value(0)).current
 
+  const theme = useColorScheme() ?? 'light'
+
   useEffect(() => {
+    // 键盘弹出屏幕上移
     const keyboardWillShow = RNKeyboard.addListener(
       Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
       () => {
@@ -31,6 +39,7 @@ export function AuthLayout({ children, title }: Props) {
         }).start()
       }
     )
+    // 键盘收起屏幕下移
     const keyboardWillHide = RNKeyboard.addListener(
       Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
       () => {
@@ -42,7 +51,6 @@ export function AuthLayout({ children, title }: Props) {
         }).start()
       }
     )
-
     return () => {
       keyboardWillShow.remove()
       keyboardWillHide.remove()
@@ -56,33 +64,38 @@ export function AuthLayout({ children, title }: Props) {
     }, [])
   )
 
+  useEffect(() => {
+    if (theme === 'dark')
+      setLogo(require(`@/assets/images/logo-dark.gif`))
+    else
+      setLogo(require(`@/assets/images/logo-light.gif`))
+  }, [theme])
+
   const translateY = scrollY.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -70]
   })
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
-          <Image
-            source={require('@/assets/images/logo.gif')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.title}>{title}</Text>
-          {children}
-        </Animated.View>
-      </View>
-    </TouchableWithoutFeedback>
+    <JView themed>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <JView themed>
+          <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
+            <Image
+              source={logo}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <JText size={24} marginVertical={20} bold center>{title}</JText>
+            {children}
+          </Animated.View>
+        </JView>
+      </TouchableWithoutFeedback>
+    </JView>
   )
 }
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
+const styles = StyleSheet.create({
   scrollContent: {
     flex: 1,
     justifyContent: 'center',
@@ -92,11 +105,5 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginHorizontal: 'auto'
-  },
-  title: {
-    marginVertical: 20,
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center'
   }
 })

@@ -2,8 +2,8 @@ import { Image, StyleSheet, Platform } from 'react-native'
 
 import { HelloWave } from '@/components/HelloWave'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
-import { ThemedText } from '@/components/ThemedText'
-import { ThemedView } from '@/components/ThemedView'
+import { JText } from '@/components/ui/JText'
+import { JView } from '@/components/ui/JView'
 
 export default function HomeScreen() {
   return (
@@ -15,41 +15,41 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+      <JView themed style={styles.titleContainer}>
+        <JText>Welcome!</JText>
         <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
+      </JView>
+      <JView themed style={styles.stepContainer}>
+        <JText>Step 1: Try it</JText>
+        <JText>
+          Edit <JText>app/(tabs)/index.tsx</JText> to see changes.
           Press{' '}
-          <ThemedText type="defaultSemiBold">
+          <JText>
             {Platform.select({
               ios: 'cmd + d',
               android: 'cmd + m',
               web: 'F12'
             })}
-          </ThemedText>{' '}
+          </JText>{' '}
           to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
+        </JText>
+      </JView>
+      <JView themed style={styles.stepContainer}>
+        <JText>Step 2: Explore</JText>
+        <JText>
           Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
+        </JText>
+      </JView>
+      <JView themed style={styles.stepContainer}>
+        <JText>Step 3: Get a fresh start</JText>
+        <JText>
           When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+          <JText>npm run reset-project</JText> to get a fresh{' '}
+          <JText>app</JText> directory. This will move the current{' '}
+          <JText>app</JText> to{' '}
+          <JText>app-example</JText>.
+        </JText>
+      </JView>
     </ParallaxScrollView>
   )
 }
