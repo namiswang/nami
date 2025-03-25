@@ -32,25 +32,24 @@ export default function RootLayout() {
 
   // 切换页面关闭当前页面的提示
   useEffect(() => {
-    return navigationRef.addListener('state', () => {
-      Toast.hide()
-    })
+    return navigationRef.addListener('state', () => Toast.hide())
   }, [navigationRef])
 
-  if (!loaded) {
-    return null
-  }
+  if (!loaded) return null
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack initialRouteName="identify">
         <Stack.Screen name="identify" options={{ headerShown: false }} />
         <Stack.Screen name="verify" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
+
       <Redirect href="/identify" />
+
+      <StatusBar style="auto" />
+
       <Toast config={toastConfig} />
     </ThemeProvider>
   )

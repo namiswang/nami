@@ -5,6 +5,8 @@ export default {
     password: 'Password',
     continue: 'Continue',
     back: 'Back',
-    buttonLoadingText: 'Loading...'
+    buttonLoadingText: 'Loading...',
+    identifyTip: 'Please enter your username',
+    verifyTip: 'Please enter your password'
   }
 } 

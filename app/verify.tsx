@@ -1,21 +1,22 @@
 import { useRef, useState } from 'react'
+import { TextInput } from 'react-native'
 import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from '@/components/AuthLayout'
 import { JButton } from '@/components/ui/JButton'
 import { JInput } from '@/components/ui/JInput'
-import { JMessage } from '@/components/ui/JToast'
 
 export default function Verify() {
   const [password, setPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
-  const inputRef = useRef<any>(null)
+  const inputRef = useRef<TextInput>(null)
 
   const { t } = useTranslation()
 
   const continueHandler = () => {
     if (!password) {
-      JMessage.error('请输入密码')
+      setErrorMsg(t('login.verifyTip'))
       inputRef.current?.focus()
       return
     }
@@ -26,10 +27,14 @@ export default function Verify() {
     <AuthLayout title={t('login.title')}>
       <JInput
         ref={inputRef}
-        value={password}
-        onChange={setPassword}
-        placeholder={t('login.password')}
         secure
+        value={password}
+        onChange={(value) => {
+          setPassword(value)
+          setErrorMsg(undefined)
+        }}
+        placeholder={t('login.password')}
+        error={errorMsg}
       />
 
       <JButton

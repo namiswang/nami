@@ -1,21 +1,22 @@
 import { useState, useRef } from 'react'
+import { TextInput } from 'react-native'
 import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from '@/components/AuthLayout'
 import { JButton } from '@/components/ui/JButton'
 import { JInput } from '@/components/ui/JInput'
-import { JMessage } from '@/components/ui/JToast'
 
 export default function Identify() {
   const [username, setUsername] = useState('')
+  const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
-  const inputRef = useRef<any>(null)
+  const inputRef = useRef<TextInput>(null)
 
   const { t } = useTranslation()
 
   const continueHandler = () => {
     if (!username) {
-      JMessage.error('请输入用户名')
+      setErrorMsg(t('login.identifyTip'))
       inputRef.current?.focus()
       return
     }
@@ -30,8 +31,12 @@ export default function Identify() {
       <JInput
         ref={inputRef}
         value={username}
-        onChange={setUsername}
+        onChange={(value) => {
+          setUsername(value)
+          setErrorMsg(undefined)
+        }}
         placeholder={t('login.username')}
+        error={errorMsg}
       />
 
       <JButton
