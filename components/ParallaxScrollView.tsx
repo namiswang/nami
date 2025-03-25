@@ -44,7 +44,7 @@ export default function ParallaxScrollView({
   })
 
   return (
-    <JView style={styles.container}>
+    <JView themed style={styles.container}>
       <Animated.ScrollView
         ref={scrollRef}
         scrollEventThrottle={16}
@@ -58,7 +58,7 @@ export default function ParallaxScrollView({
           ]}>
           {headerImage}
         </Animated.View>
-        <JView style={styles.content}>{children}</JView>
+        <JView themed style={styles.content}>{children}</JView>
       </Animated.ScrollView>
     </JView>
   )

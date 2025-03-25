@@ -77,9 +77,9 @@ export function AuthLayout({ children, title }: Props) {
   })
 
   return (
-    <JView style={{ flex: 1 }}>
+    <JView themed>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <JView style={styles.container}>
+        <JView themed>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
             <Image
               source={logo}
@@ -96,9 +96,6 @@ export function AuthLayout({ children, title }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
   scrollContent: {
     flex: 1,
     justifyContent: 'center',

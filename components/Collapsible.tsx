@@ -11,7 +11,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
   const theme = useColorScheme() ?? 'light'
 
   return (
-    <JView>
+    <JView themed>
       <TouchableOpacity
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
@@ -26,7 +26,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
 
         <JText >{title}</JText>
       </TouchableOpacity>
-      {isOpen && <JView style={styles.content}>{children}</JView>}
+      {isOpen && <JView themed style={styles.content}>{children}</JView>}
     </JView>
   )
 }

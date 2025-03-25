@@ -18,7 +18,7 @@ export default function TabTwoScreen() {
           style={styles.headerImage}
         />
       }>
-      <JView style={styles.titleContainer}>
+      <JView themed style={styles.titleContainer}>
         <JText>Explore</JText>
       </JView>
       <JText>This app includes example code to help you get started.</JText>

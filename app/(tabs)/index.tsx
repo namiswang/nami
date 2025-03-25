@@ -15,11 +15,11 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <JView style={styles.titleContainer}>
+      <JView themed style={styles.titleContainer}>
         <JText>Welcome!</JText>
         <HelloWave />
       </JView>
-      <JView style={styles.stepContainer}>
+      <JView themed style={styles.stepContainer}>
         <JText>Step 1: Try it</JText>
         <JText>
           Edit <JText>app/(tabs)/index.tsx</JText> to see changes.
@@ -34,13 +34,13 @@ export default function HomeScreen() {
           to open developer tools.
         </JText>
       </JView>
-      <JView style={styles.stepContainer}>
+      <JView themed style={styles.stepContainer}>
         <JText>Step 2: Explore</JText>
         <JText>
           Tap the Explore tab to learn more about what's included in this starter app.
         </JText>
       </JView>
-      <JView style={styles.stepContainer}>
+      <JView themed style={styles.stepContainer}>
         <JText>Step 3: Get a fresh start</JText>
         <JText>
           When you're ready, run{' '}
