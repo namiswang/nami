@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { TouchableOpacity, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native'
 import { t } from 'i18next'
 import { useColors } from '@/hooks/useColor'
@@ -6,8 +6,9 @@ import { JText } from '@/components/ui/JText'
 
 interface ButtonProps {
   type?: 'normal' | 'primary' | 'danger'
-  text: string
+  text: string | ReactNode
   width?: number
+  height?: number
   onPress: () => void
   style?: ViewStyle
   textStyle?: TextStyle
@@ -20,6 +21,7 @@ export function JButton({
   type = 'normal',
   text,
   width,
+  height,
   style,
   textStyle,
   onPress,
@@ -66,7 +68,8 @@ export function JButton({
         styles.button,
         isDisabled && styles.disabledButton,
         style,
-        width ? { width } : {}
+        width ? { width } : {},
+        height ? { height } : {}
       ]}
       disabled={isDisabled}
       activeOpacity={isDisabled ? 1 : 0.7}
@@ -95,17 +98,21 @@ export function JButton({
           </JText>
         </View>
       ) : (
-        <JText
-          bold
-          size={14}
-          style={[
-            { color: textColor },
-            isDisabled && styles.disabledText,
-            textStyle
-          ]}
-        >
-          {text}
-        </JText>
+        typeof text === 'string' ? (
+          <JText
+            bold
+            size={14}
+            style={[
+              { color: textColor },
+              isDisabled && styles.disabledText,
+              textStyle
+            ]}
+          >
+            {text}
+          </JText>
+        ) : (
+          text
+        )
       )}
     </TouchableOpacity>
   )

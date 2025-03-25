@@ -9,28 +9,29 @@ import Toast from 'react-native-toast-message'
 import { CustomToast } from '@/components/ui/JToast'
 import { useColorScheme } from 'react-native'
 import '../i18n'
+import { useSettingStore } from '@/store'
 
 // 防止启动画面在资产加载完成之前自动隐藏。
 SplashScreen.preventAutoHideAsync()
 
-const toastConfig = {
-  success: (props: any) => <CustomToast {...props} />
-}
-
 export default function RootLayout() {
+  const { mode, setMode } = useSettingStore()
   const colorScheme = useColorScheme()
   const navigationRef = useNavigationContainerRef()
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
   })
 
+  // 初始化mode
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync()
-    }
+    setMode(colorScheme ?? 'light')
+  }, [])
+
+  useEffect(() => {
+    if (loaded) SplashScreen.hideAsync()
   }, [loaded])
 
-  // 切换页面关闭当前页面的提示
+  // 切换页面关闭当前页面的toast
   useEffect(() => {
     return navigationRef.addListener('state', () => Toast.hide())
   }, [navigationRef])
@@ -38,7 +39,7 @@ export default function RootLayout() {
   if (!loaded) return null
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={mode === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="identify" options={{ headerShown: false }} />
         <Stack.Screen name="verify" options={{ headerShown: false }} />
@@ -48,9 +49,14 @@ export default function RootLayout() {
 
       <Redirect href="/identify" />
 
-      <StatusBar style="auto" />
+      {/*顶部状态栏*/}
+      <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />
 
-      <Toast config={toastConfig} />
+      <Toast
+        config={{
+          success: (props: any) => <CustomToast {...props} />
+        }}
+      />
     </ThemeProvider>
   )
 }

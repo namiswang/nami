@@ -4,14 +4,15 @@ import {
   Animated,
   TouchableWithoutFeedback,
   Keyboard,
-  Image,
-  useColorScheme
+  Image
 } from 'react-native'
 import { useState, useEffect, useRef, ReactNode, useCallback } from 'react'
 import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { JView } from '@/components/ui/JView'
 import { JText } from '@/components/ui/JText'
+import { DarkModeTool } from '@/components/DarkModeTool'
+import { useSettingStore } from '@/store'
 
 interface Props {
   children: ReactNode
@@ -21,10 +22,8 @@ interface Props {
 /** 登陆注册layout */
 export function AuthLayout({ children, title }: Props) {
   const [logo, setLogo] = useState(require('@/assets/images/logo-light.gif'))
-
   const scrollY = useRef(new Animated.Value(0)).current
-
-  const theme = useColorScheme() ?? 'light'
+  const { mode } = useSettingStore()
 
   useEffect(() => {
     // 键盘弹出屏幕上移
@@ -65,11 +64,11 @@ export function AuthLayout({ children, title }: Props) {
   )
 
   useEffect(() => {
-    if (theme === 'dark')
+    if (mode === 'dark')
       setLogo(require(`@/assets/images/logo-dark.gif`))
     else
       setLogo(require(`@/assets/images/logo-light.gif`))
-  }, [theme])
+  }, [mode])
 
   const translateY = scrollY.interpolate({
     inputRange: [0, 1],
@@ -79,13 +78,10 @@ export function AuthLayout({ children, title }: Props) {
   return (
     <JView themed>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <JView themed>
+        <JView>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
-            <Image
-              source={logo}
-              style={styles.logo}
-              resizeMode="contain"
-            />
+            <DarkModeTool />
+            <Image source={logo} style={styles.logo} resizeMode="contain" />
             <JText size={24} marginVertical={20} bold center>{title}</JText>
             {children}
           </Animated.View>

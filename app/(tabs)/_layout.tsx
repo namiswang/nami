@@ -1,12 +1,12 @@
 import { Tabs } from 'expo-router'
 import React from 'react'
 import { Platform, View } from 'react-native'
-import { useColorScheme } from 'react-native'
 import { HapticTab } from '@/components/HapticTab'
 import { IconSymbol } from '@/components/ui/IconSymbol'
 import TabBarBackground from '@/components/ui/TabBarBackground'
 import { Colors } from '@/constants/Colors'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/src/types'
+import { useSettingStore } from '@/store'
 
 interface Tab {
   name: string
@@ -15,7 +15,7 @@ interface Tab {
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme()
+  const { mode } = useSettingStore()
 
   const tabs: Tab[] = [
     {
@@ -41,7 +41,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[mode ?? 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
