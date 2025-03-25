@@ -4,9 +4,10 @@ import {
   Animated,
   TouchableWithoutFeedback,
   Keyboard,
-  Image
+  Image,
+  useColorScheme
 } from 'react-native'
-import { useEffect, useRef, ReactNode, useCallback } from 'react'
+import { useState, useEffect, useRef, ReactNode, useCallback } from 'react'
 import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { JView } from '@/components/ui/JView'
@@ -18,9 +19,14 @@ interface Props {
 }
 
 export function AuthLayout({ children, title }: Props) {
+  const [logo, setLogo] = useState(require('@/assets/images/logo-light.gif'))
+
   const scrollY = useRef(new Animated.Value(0)).current
 
+  const theme = useColorScheme() ?? 'light'
+
   useEffect(() => {
+    // 键盘弹出屏幕上移
     const keyboardWillShow = RNKeyboard.addListener(
       Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
       () => {
@@ -32,6 +38,7 @@ export function AuthLayout({ children, title }: Props) {
         }).start()
       }
     )
+    // 键盘收起屏幕下移
     const keyboardWillHide = RNKeyboard.addListener(
       Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
       () => {
@@ -43,7 +50,6 @@ export function AuthLayout({ children, title }: Props) {
         }).start()
       }
     )
-
     return () => {
       keyboardWillShow.remove()
       keyboardWillHide.remove()
@@ -57,6 +63,13 @@ export function AuthLayout({ children, title }: Props) {
     }, [])
   )
 
+  useEffect(() => {
+    if (theme === 'dark')
+      setLogo(require(`@/assets/images/logo-dark.gif`))
+    else
+      setLogo(require(`@/assets/images/logo-light.gif`))
+  }, [theme])
+
   const translateY = scrollY.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -70]
@@ -68,7 +81,7 @@ export function AuthLayout({ children, title }: Props) {
         <JView style={styles.container}>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
             <Image
-              source={require('@/assets/images/logo.gif')}
+              source={logo}
               style={styles.logo}
               resizeMode="contain"
             />
