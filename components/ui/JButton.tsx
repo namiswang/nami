@@ -1,7 +1,8 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native'
 import { t } from 'i18next'
-import { useThemeColor, useThemeColors } from '@/hooks/useThemeColor'
+import { useThemeColors } from '@/hooks/useThemeColor'
+import { JText } from '@/components/ui/JText'
 
 interface ButtonProps {
   type?: 'normal' | 'primary' | 'danger'
@@ -73,32 +74,39 @@ export function JButton({
         !isDisabled && onPress()
       }}
     >
-      <Text
-        style={[
-          { color: textColor },
-          styles.buttonText,
-          isDisabled && styles.disabledText,
-          textStyle
-        ]}
-      >
-        {loading ? (
-          <View style={styles.loadingButton}>
-            <ActivityIndicator
-              size="small"
-              color={`${type}ButtonText`}
-              style={styles.loader}
-            />
-            <Text
-              style={[
-                { color: `${type}ButtonText` },
-                styles.loadingText
-              ]}
-            >
-              {loadingText}
-            </Text>
-          </View>
-        ) : text}
-      </Text>
+
+      {loading ? (
+        <View style={styles.loadingButton}>
+          <ActivityIndicator
+            size="small"
+            color={textColor}
+            style={styles.loader}
+          />
+          <JText
+            bold
+            size={14}
+            style={[
+              { color: textColor },
+              isDisabled && styles.disabledText,
+              textStyle
+            ]}
+          >
+            {loadingText}
+          </JText>
+        </View>
+      ) : (
+        <JText
+          bold
+          size={14}
+          style={[
+            { color: textColor },
+            isDisabled && styles.disabledText,
+            textStyle
+          ]}
+        >
+          {text}
+        </JText>
+      )}
     </TouchableOpacity>
   )
 }
@@ -115,10 +123,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
   },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: 'bold'
-  },
 
   // disabled
   disabledButton: {
@@ -132,10 +136,6 @@ const styles = StyleSheet.create({
   loadingButton: {
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  loadingText: {
-    fontSize: 14,
-    fontWeight: 'bold'
   },
   loader: {
     marginRight: 8

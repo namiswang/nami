@@ -24,7 +24,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
           style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
         />
 
-        <JText type="defaultSemiBold">{title}</JText>
+        <JText >{title}</JText>
       </TouchableOpacity>
       {isOpen && <JView style={styles.content}>{children}</JView>}
     </JView>

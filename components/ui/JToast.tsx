@@ -1,8 +1,9 @@
 import React from 'react'
 import Toast from 'react-native-toast-message'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { IconSymbol, IconSymbolName } from './IconSymbol'
 import { ToastShowParams } from 'react-native-toast-message/lib/src/types'
+import { JText } from '@/components/ui/JText'
 
 const config = {
   success: {
@@ -76,7 +77,7 @@ export function CustomToast({ text1, props }: CustomToastProps) {
   return (
     <View style={[styles.container, { backgroundColor: props.backgroundColor }]}>
       <IconSymbol name={props.icon} size={20} color="#fff" />
-      <Text style={styles.text}>{text1}</Text>
+      <JText style={styles.text}>{text1}</JText>
     </View>
   )
 }

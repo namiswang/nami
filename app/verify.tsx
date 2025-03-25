@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { TextInput } from 'react-native'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from '@/components/AuthLayout'
 import { JButton } from '@/components/ui/JButton'
@@ -13,6 +13,7 @@ export default function Verify() {
   const inputRef = useRef<TextInput>(null)
 
   const { t } = useTranslation()
+  const {username} = useLocalSearchParams()
 
   const continueHandler = () => {
     if (!password) {
@@ -20,6 +21,7 @@ export default function Verify() {
       inputRef.current?.focus()
       return
     }
+    console.log(11111, 'username', username)
     router.replace('/(tabs)')
   }
 

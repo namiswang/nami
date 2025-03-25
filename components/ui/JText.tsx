@@ -1,60 +1,55 @@
-import { Text, type TextProps, StyleSheet } from 'react-native'
+import { Text, type TextProps } from 'react-native'
 
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { useThemeColors } from '@/hooks/useThemeColor'
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  size?: number
+  bold?: boolean
+  center?: boolean
+  marginHorizontal?: number
+  marginVertical?: number
+  marginTop?: number
+  marginBottom?: number
+  marginLeft?: number
+  marginRight?: number
+  margin?: number
 };
 
 export function JText({
   style,
-  lightColor,
-  darkColor,
-  type = 'default',
+  bold = false,
+  center = false,
+  size = 16,
+  margin = undefined,
+  marginHorizontal = undefined,
+  marginVertical = undefined,
+  marginTop = undefined,
+  marginBottom = undefined,
+  marginLeft = undefined,
+  marginRight = undefined,
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor('text')
+  const [color] = useThemeColors(['text'])
 
   return (
     <Text
       style={[
-        { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
+        {
+          color,
+          fontSize: size,
+          fontWeight: bold ? 'bold' : 'normal',
+          textAlign: center ? 'center' : 'auto',
+          margin: margin !== undefined ? margin : undefined,
+          marginHorizontal: marginHorizontal !== undefined ? marginHorizontal : undefined,
+          marginVertical: marginVertical !== undefined ? marginVertical : undefined,
+          marginTop: marginTop !== undefined ? marginTop : undefined,
+          marginBottom: marginBottom !== undefined ? marginBottom : undefined,
+          marginLeft: marginLeft !== undefined ? marginLeft : undefined,
+          marginRight: marginRight !== undefined ? marginRight : undefined
+        },
         style
       ]}
       {...rest}
     />
   )
 }
-
-const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
-    lineHeight: 24
-  },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600'
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32
-  },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  link: {
-    lineHeight: 30,
-    fontSize: 16,
-    color: '#0a7ea4'
-  }
-})

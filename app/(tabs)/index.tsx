@@ -16,15 +16,15 @@ export default function HomeScreen() {
         />
       }>
       <JView style={styles.titleContainer}>
-        <JText type="title">Welcome!</JText>
+        <JText>Welcome!</JText>
         <HelloWave />
       </JView>
       <JView style={styles.stepContainer}>
-        <JText type="subtitle">Step 1: Try it</JText>
+        <JText>Step 1: Try it</JText>
         <JText>
-          Edit <JText type="defaultSemiBold">app/(tabs)/index.tsx</JText> to see changes.
+          Edit <JText>app/(tabs)/index.tsx</JText> to see changes.
           Press{' '}
-          <JText type="defaultSemiBold">
+          <JText>
             {Platform.select({
               ios: 'cmd + d',
               android: 'cmd + m',
@@ -35,19 +35,19 @@ export default function HomeScreen() {
         </JText>
       </JView>
       <JView style={styles.stepContainer}>
-        <JText type="subtitle">Step 2: Explore</JText>
+        <JText>Step 2: Explore</JText>
         <JText>
           Tap the Explore tab to learn more about what's included in this starter app.
         </JText>
       </JView>
       <JView style={styles.stepContainer}>
-        <JText type="subtitle">Step 3: Get a fresh start</JText>
+        <JText>Step 3: Get a fresh start</JText>
         <JText>
           When you're ready, run{' '}
-          <JText type="defaultSemiBold">npm run reset-project</JText> to get a fresh{' '}
-          <JText type="defaultSemiBold">app</JText> directory. This will move the current{' '}
-          <JText type="defaultSemiBold">app</JText> to{' '}
-          <JText type="defaultSemiBold">app-example</JText>.
+          <JText>npm run reset-project</JText> to get a fresh{' '}
+          <JText>app</JText> directory. This will move the current{' '}
+          <JText>app</JText> to{' '}
+          <JText>app-example</JText>.
         </JText>
       </JView>
     </ParallaxScrollView>

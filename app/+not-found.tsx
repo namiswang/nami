@@ -9,9 +9,9 @@ export default function NotFoundScreen() {
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
       <JView style={styles.container}>
-        <JText type="title">This screen doesn't exist.</JText>
+        <JText>This screen doesn't exist.</JText>
         <Link href="/" style={styles.link}>
-          <JText type="link">Go to home screen!</JText>
+          <JText>Go to home screen!</JText>
         </Link>
       </JView>
     </>

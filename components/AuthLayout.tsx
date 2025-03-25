@@ -18,6 +18,7 @@ interface Props {
   title: string
 }
 
+/** 登陆注册layout */
 export function AuthLayout({ children, title }: Props) {
   const [logo, setLogo] = useState(require('@/assets/images/logo-light.gif'))
 
@@ -85,7 +86,7 @@ export function AuthLayout({ children, title }: Props) {
               style={styles.logo}
               resizeMode="contain"
             />
-            <JText style={styles.title}>{title}</JText>
+            <JText size={24} marginVertical={20} bold center>{title}</JText>
             {children}
           </Animated.View>
         </JView>
@@ -107,11 +108,5 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginHorizontal: 'auto'
-  },
-  title: {
-    marginVertical: 20,
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center'
   }
 })

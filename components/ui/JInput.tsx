@@ -2,7 +2,6 @@ import React, { useState, forwardRef } from 'react'
 import {
   View,
   TextInput,
-  Text,
   StyleSheet,
   ViewStyle,
   TextStyle,
@@ -11,6 +10,7 @@ import {
 } from 'react-native'
 import { IconSymbol, IconSymbolName } from './IconSymbol'
 import { useThemeColors } from '@/hooks/useThemeColor'
+import { JText } from '@/components/ui/JText'
 
 interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   label?: string
@@ -70,10 +70,11 @@ export const JInput = forwardRef<TextInput, InputProps>(({
   return (
     <View style={[styles.container, containerStyle]}>
       {label && (
-        <Text style={[styles.label, labelStyle]}>
+        <JText bold size={14} marginBottom={8} style={labelStyle}>
           {label}
-        </Text>
+        </JText>
       )}
+
       <View style={[
         styles.inputContainer,
         isFocused && { borderColor: 'rgb(228, 230, 233)' },
