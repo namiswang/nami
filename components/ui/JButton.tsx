@@ -5,21 +5,37 @@ import {
   ViewStyle,
   TextStyle,
   ActivityIndicator,
-  View,
   Platform,
   Vibration
 } from 'react-native'
 import { t } from 'i18next'
+import * as Haptics from 'expo-haptics'
 import { useColors } from '@/hooks/useColor'
 import { JText } from '@/components/ui/JText'
-import * as Haptics from 'expo-haptics'
+import { JView } from '@/components/ui/JView'
 
 interface ButtonProps {
   type?: 'normal' | 'primary' | 'danger'
+  variant?: 'solid' | 'outlined' | 'filled' | 'text'
   text: string | ReactNode
   width?: number
   height?: number
-  onPress: () => void
+  margin?: number
+  marginHorizontal?: number
+  marginVertical?: number
+  marginTop?: number
+  marginBottom?: number
+  marginLeft?: number
+  marginRight?: number
+  padding?: number
+  paddingHorizontal?: number
+  paddingVertical?: number
+  paddingTop?: number
+  paddingBottom?: number
+  paddingLeft?: number
+  paddingRight?: number
+  borderRadius?: number
+  onPress?: () => void
   style?: ViewStyle
   textStyle?: TextStyle
   loading?: boolean
@@ -30,9 +46,25 @@ interface ButtonProps {
 
 export function JButton({
   type = 'normal',
+  variant = 'solid',
   text,
   width,
   height,
+  margin = undefined,
+  marginHorizontal = undefined,
+  marginVertical = 5,
+  marginTop = undefined,
+  marginBottom = undefined,
+  marginLeft = undefined,
+  marginRight = undefined,
+  padding = 15,
+  paddingHorizontal = undefined,
+  paddingVertical = undefined,
+  paddingTop = undefined,
+  paddingBottom = undefined,
+  paddingLeft = undefined,
+  paddingRight = undefined,
+  borderRadius = 8,
   style,
   textStyle,
   onPress,
@@ -42,42 +74,114 @@ export function JButton({
   haptic = false
 }: ButtonProps) {
   const [
-    buttonBorder,
     normalButtonText,
     normalButtonBackground,
     primaryButtonText,
     primaryButtonBackground,
     dangerButtonBackground,
-    dangerButtonText
+    dangerButtonText,
+    lightPrimaryColor,
+    lightDangerColor,
+    lightNormalColor
   ] = useColors([
-    'buttonBorder',
     'normalButtonText',
     'normalButtonBackground',
     'primaryButtonText',
     'primaryButtonBackground',
     'dangerButtonBackground',
-    'dangerButtonText'
+    'dangerButtonText',
+    'lightPrimaryColor',
+    'lightDangerColor',
+    'lightNormalColor'
   ])
 
-  const backgroundColor = {
-    normal: normalButtonBackground,
-    primary: primaryButtonBackground,
-    danger: dangerButtonBackground
-  }[type]
+  // 根据variant和type获取样式
+  const getButtonStyles = () => {
+    const baseColor = {
+      normal: normalButtonBackground,
+      primary: primaryButtonBackground,
+      danger: dangerButtonBackground
+    }[type]
 
-  const textColor = {
-    normal: normalButtonText,
-    primary: primaryButtonText,
-    danger: dangerButtonText
-  }[type]
+    const baseTextColor = {
+      normal: normalButtonText,
+      primary: primaryButtonText,
+      danger: dangerButtonText
+    }[type]
+
+    const lightColor = {
+      normal: lightNormalColor,
+      primary: lightPrimaryColor,
+      danger: lightDangerColor
+    }[type]
+
+    switch (variant) {
+      case 'solid':
+        return {
+          backgroundColor: baseColor,
+          borderColor: baseColor,
+          textColor: baseTextColor,
+          borderWidth: 1
+        }
+      case 'outlined':
+        return {
+          backgroundColor: 'transparent',
+          borderColor: baseColor,
+          textColor: baseColor,
+          borderWidth: 1
+        }
+      case 'filled':
+        return {
+          backgroundColor: lightColor,
+          borderColor: lightColor,
+          textColor: baseColor,
+          borderWidth: 1
+        }
+      case 'text':
+        return {
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+          textColor: baseColor,
+          borderWidth: 0
+        }
+      default:
+        return {
+          backgroundColor: baseColor,
+          borderColor: baseColor,
+          textColor: baseTextColor,
+          borderWidth: 1
+        }
+    }
+  }
+
+  const { backgroundColor, borderColor, textColor, borderWidth } = getButtonStyles()
 
   const isDisabled = loading || disabled
 
   return (
     <TouchableOpacity
       style={[
-        { backgroundColor, borderColor: buttonBorder },
         styles.button,
+        {
+          margin: margin !== undefined ? margin : undefined,
+          marginHorizontal: marginHorizontal !== undefined ? marginHorizontal : undefined,
+          marginVertical: marginVertical !== undefined ? marginVertical : undefined,
+          marginTop: marginTop !== undefined ? marginTop : undefined,
+          marginBottom: marginBottom !== undefined ? marginBottom : undefined,
+          marginLeft: marginLeft !== undefined ? marginLeft : undefined,
+          marginRight: marginRight !== undefined ? marginRight : undefined,
+          padding: padding !== undefined ? padding : undefined,
+          paddingHorizontal: paddingHorizontal !== undefined ? paddingHorizontal : undefined,
+          paddingVertical: paddingVertical !== undefined ? paddingVertical : undefined,
+          paddingTop: paddingTop !== undefined ? paddingTop : undefined,
+          paddingBottom: paddingBottom !== undefined ? paddingBottom : undefined,
+          paddingLeft: paddingLeft !== undefined ? paddingLeft : undefined,
+          paddingRight: paddingRight !== undefined ? paddingRight : undefined,
+          borderRadius,
+          borderColor, borderWidth,
+          backgroundColor
+        },
+        variant === 'text' && styles.textButton,
         isDisabled && styles.disabledButton,
         style,
         width ? { width } : {},
@@ -94,12 +198,11 @@ export function JButton({
             Vibration.vibrate(10)
           }
         }
-        onPress()
+        onPress?.()
       }}
     >
-
       {loading ? (
-        <View style={styles.loadingButton}>
+        <JView style={styles.loadingButton}>
           <ActivityIndicator
             size="small"
             color={textColor}
@@ -116,13 +219,14 @@ export function JButton({
           >
             {loadingText}
           </JText>
-        </View>
+        </JView>
       ) : (
         typeof text === 'string' ? (
           <JText
             bold
             size={14}
             style={[
+              { lineHeight: 14 },
               { color: textColor },
               isDisabled && styles.disabledText,
               textStyle
@@ -143,12 +247,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 5,
-    padding: 15,
-    borderWidth: 1,
     borderStyle: 'solid',
-    borderRadius: 8,
-    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+    boxShadow: '0 1px 2px rgba(128, 128, 128, 0.2)'
+  },
+  textButton: {
+    padding: 8,
+    marginVertical: 2
   },
 
   // disabled
@@ -166,10 +270,5 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginRight: 8
-  },
-
-  // normal
-  normalButton: {
-    borderWidth: 1
   }
 })

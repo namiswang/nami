@@ -11,7 +11,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
   const { mode } = useSettingStore()
 
   return (
-    <JView themed>
+    <JView flex={1} themed>
       <TouchableOpacity
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
@@ -26,7 +26,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
 
         <JText>{title}</JText>
       </TouchableOpacity>
-      {isOpen && <JView themed style={styles.content}>{children}</JView>}
+      {isOpen && <JView themed flex={1} style={styles.content}>{children}</JView>}
     </JView>
   )
 }

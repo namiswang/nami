@@ -76,9 +76,9 @@ export function AuthLayout({ children, title }: Props) {
   })
 
   return (
-    <JView themed>
+    <JView flex={1} themed>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <JView>
+        <JView flex={1}>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
             <ThemeModeTool
               style={{

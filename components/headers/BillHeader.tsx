@@ -1,35 +1,38 @@
 import { JText } from '@/components/ui/JText'
-import { View } from 'react-native'
 import { JButton } from '@/components/ui/JButton'
 import { IconSymbol } from '@/components/ui/IconSymbol'
 import React from 'react'
+import { JView } from '@/components/ui/JView'
+import { useColor } from '@/hooks/useColor'
 
 export function BillHeader() {
-  return <View style={{
+  const headerBackground = useColor('headerBackground')
+
+  return <JView style={{
     justifyContent: 'flex-end',
     height: 100,
     paddingHorizontal: 10,
-    backgroundColor: '#ccc'
+    backgroundColor: headerBackground
   }}>
-    <View style={{
+    <JView style={{
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center'
     }}>
-      <View style={{ width: '25%' }}>
+      <JView style={{ width: '25%' }}>
         <JButton
           width={20}
           height={20}
           text={<IconSymbol name="text.justify" size={20} />}
           onPress={() => void 0}
         />
-      </View>
+      </JView>
 
-      <View>
-        <JText>2025-01-01</JText>
-      </View>
+      <JView>
+        <JText bold>2025-01-01</JText>
+      </JView>
 
-      <View style={{ width: '25%', flexDirection: 'row', justifyContent: 'flex-end' }}>
+      <JView style={{ width: '25%', flexDirection: 'row', justifyContent: 'flex-end' }}>
         <JButton
           width={20}
           height={20}
@@ -43,7 +46,7 @@ export function BillHeader() {
           text={<IconSymbol name="chart.line.uptrend.xyaxis" size={20} />}
           onPress={() => void 0}
         />
-      </View>
-    </View>
-  </View>
+      </JView>
+    </JView>
+  </JView>
 }

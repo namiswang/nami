@@ -1,8 +1,14 @@
-import { StyleSheet, View, type ViewProps } from 'react-native'
+import { View, type ViewProps } from 'react-native'
 import { useColor } from '@/hooks/useColor'
 
 export type ThemedViewProps = ViewProps & {
   themed?: boolean
+  flex?: number
+  row?: boolean
+  justify?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
+  align?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline'
+  width?: number
+  height?: number
   margin?: number
   marginHorizontal?: number
   marginVertical?: number
@@ -17,10 +23,17 @@ export type ThemedViewProps = ViewProps & {
   paddingBottom?: number
   paddingLeft?: number
   paddingRight?: number
+  borderRadius?: number
 };
 
 export function JView({
   themed,
+  flex = 0,
+  row = false,
+  justify = 'flex-start',
+  align = 'stretch',
+  width = undefined,
+  height = undefined,
   margin = undefined,
   marginHorizontal = undefined,
   marginVertical = undefined,
@@ -35,6 +48,7 @@ export function JView({
   paddingBottom = undefined,
   paddingLeft = undefined,
   paddingRight = undefined,
+  borderRadius = 0,
   style,
   ...otherProps
 }: ThemedViewProps) {
@@ -42,8 +56,13 @@ export function JView({
 
   return <View
     style={[
-      styles.default,
       {
+        flex,
+        flexDirection: row ? 'row' : 'column',
+        justifyContent: justify,
+        alignItems: align,
+        width,
+        height,
         margin: margin !== undefined ? margin : undefined,
         marginHorizontal: marginHorizontal !== undefined ? marginHorizontal : undefined,
         marginVertical: marginVertical !== undefined ? marginVertical : undefined,
@@ -57,7 +76,8 @@ export function JView({
         paddingTop: paddingTop !== undefined ? paddingTop : undefined,
         paddingBottom: paddingBottom !== undefined ? paddingBottom : undefined,
         paddingLeft: paddingLeft !== undefined ? paddingLeft : undefined,
-        paddingRight: paddingRight !== undefined ? paddingRight : undefined
+        paddingRight: paddingRight !== undefined ? paddingRight : undefined,
+        borderRadius
       },
       themed && { backgroundColor },
       style
@@ -65,9 +85,3 @@ export function JView({
     {...otherProps}
   />
 }
-
-const styles = StyleSheet.create({
-  default: {
-    flex: 1
-  }
-})

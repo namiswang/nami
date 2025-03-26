@@ -16,7 +16,7 @@ export default function TabLayout() {
   const { mode } = useSettingStore()
 
   return (
-    <JView>
+    <JView flex={1}>
       <Tabs
         screenOptions={{
           tabBarButton: HapticTab,

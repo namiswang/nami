@@ -15,14 +15,14 @@ export default function ParallaxScrollView({
   const bottom = useBottomTabOverflow()
 
   return (
-    <JView themed>
+    <JView themed flex={1}>
       <Animated.ScrollView
         scrollEventThrottle={16}
         scrollIndicatorInsets={{ bottom }}
         contentContainerStyle={{ paddingBottom: bottom }}
         style={style}
       >
-        <JView style={styles.content}>
+        <JView flex={1} style={styles.content}>
           {children}
         </JView>
       </Animated.ScrollView>
