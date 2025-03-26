@@ -1,8 +1,18 @@
 import React, { ReactNode } from 'react'
-import { TouchableOpacity, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, View } from 'react-native'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  ActivityIndicator,
+  View,
+  Platform,
+  Vibration
+} from 'react-native'
 import { t } from 'i18next'
 import { useColors } from '@/hooks/useColor'
 import { JText } from '@/components/ui/JText'
+import * as Haptics from 'expo-haptics'
 
 interface ButtonProps {
   type?: 'normal' | 'primary' | 'danger'
@@ -15,6 +25,7 @@ interface ButtonProps {
   loading?: boolean
   loadingText?: string
   disabled?: boolean
+  haptic?: boolean
 }
 
 export function JButton({
@@ -27,7 +38,8 @@ export function JButton({
   onPress,
   loading = false,
   loadingText = t('login.buttonLoadingText'),
-  disabled = false
+  disabled = false,
+  haptic = false
 }: ButtonProps) {
   const [
     buttonBorder,
@@ -74,7 +86,15 @@ export function JButton({
       disabled={isDisabled}
       activeOpacity={isDisabled ? 1 : 0.7}
       onPress={() => {
-        !isDisabled && onPress()
+        if (isDisabled) return
+        if (haptic) {
+          if (Platform.OS === 'ios') {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+          } else {
+            Vibration.vibrate(10)
+          }
+        }
+        onPress()
       }}
     >
 

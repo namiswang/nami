@@ -55,6 +55,7 @@ export default function TabLayout() {
       </Tabs>
 
       <JButton
+        haptic={true}
         type="primary"
         style={{
           position: 'absolute',
