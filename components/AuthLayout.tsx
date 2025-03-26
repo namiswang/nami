@@ -80,7 +80,13 @@ export function AuthLayout({ children, title }: Props) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <JView>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
-            <DarkModeTool />
+            <DarkModeTool
+              style={{
+                position: 'absolute',
+                top: 60,
+                right: 20
+              }}
+            />
             <Image source={logo} style={styles.logo} resizeMode="contain" />
             <JText size={24} marginVertical={20} bold center>{title}</JText>
             {children}

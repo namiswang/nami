@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Redirect, Stack, useNavigationContainerRef } from 'expo-router'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
@@ -21,6 +21,8 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
   })
+
+  const showHeaderBarRoutes = ['index']
 
   // 初始化mode
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
       </Stack>
 
-      <Redirect href="/identify" />
+      <Redirect href="/(tabs)" />
 
       {/*顶部状态栏*/}
       <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />
