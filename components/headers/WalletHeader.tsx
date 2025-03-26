@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { JButton } from '@/components/ui/JButton'
 import { IconSymbol } from '@/components/ui/IconSymbol'
 import React from 'react'
-import { DarkModeTool } from '@/components/DarkModeTool'
+import { ThemeModeTool } from '@/components/ThemeModeTool'
 
 export function WalletHeader() {
   return <View style={{
@@ -31,7 +31,7 @@ export function WalletHeader() {
       </View>
 
       <View style={{ width: '25%', flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <DarkModeTool />
+        <ThemeModeTool />
       </View>
     </View>
   </View>

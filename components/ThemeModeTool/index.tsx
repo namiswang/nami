@@ -8,7 +8,7 @@ interface Props {
   style?: ViewStyle
 }
 
-export const DarkModeTool = React.memo<Props>(({ style }) => {
+export const ThemeModeTool = React.memo<Props>(({ style }) => {
   const { mode, setMode } = useSettingStore()
 
   return (

@@ -11,7 +11,7 @@ import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { JView } from '@/components/ui/JView'
 import { JText } from '@/components/ui/JText'
-import { DarkModeTool } from '@/components/DarkModeTool'
+import { ThemeModeTool } from '@/components/ThemeModeTool'
 import { useSettingStore } from '@/store'
 
 interface Props {
@@ -80,7 +80,7 @@ export function AuthLayout({ children, title }: Props) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <JView>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
-            <DarkModeTool
+            <ThemeModeTool
               style={{
                 position: 'absolute',
                 top: 60,
