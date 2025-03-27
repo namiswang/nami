@@ -33,7 +33,7 @@ export default function ParallaxScrollView({
 const styles = StyleSheet.create({
   content: {
     padding: 10,
-    gap: 16,
+    gap: 12,
     overflow: 'hidden'
   }
 })

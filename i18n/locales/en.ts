@@ -8,5 +8,14 @@ export default {
     buttonLoadingText: 'Loading...',
     identifyTip: 'Please enter your username',
     verifyTip: 'Please enter your password'
+  },
+  week: {
+    monday: 'Mon',
+    tuesday: 'Tue',
+    wednesday: 'Wed',
+    thursday: 'Thu',
+    friday: 'Fri',
+    saturday: 'Sat',
+    sunday: 'Sun'
   }
 } 
