@@ -12,6 +12,7 @@ export function BillHeader() {
     justifyContent: 'flex-end',
     height: 100,
     paddingHorizontal: 10,
+    paddingBottom: 5,
     backgroundColor: headerBackground
   }}>
     <JView style={{
@@ -23,27 +24,31 @@ export function BillHeader() {
         <JButton
           width={20}
           height={20}
-          text={<IconSymbol name="text.justify" size={20} />}
+          variant="text"
+          text={<IconSymbol name="text.justify" size={24} />}
           onPress={() => void 0}
         />
       </JView>
 
-      <JView>
-        <JText bold>2025-01-01</JText>
+      <JView row align="center">
+        <JText bold size={16} marginRight={4}>2025-01-01</JText>
+        <IconSymbol name="chevron.down" size={16} />
       </JView>
 
       <JView style={{ width: '25%', flexDirection: 'row', justifyContent: 'flex-end' }}>
         <JButton
           width={20}
           height={20}
-          text={<IconSymbol name="calendar" size={20} />}
+          variant="text"
+          text={<IconSymbol name="calendar" size={24} />}
           onPress={() => void 0}
         />
         <JButton
           width={20}
           height={20}
-          style={{ marginLeft: 5 }}
-          text={<IconSymbol name="chart.line.uptrend.xyaxis" size={20} />}
+          style={{ marginLeft: 10 }}
+          variant="text"
+          text={<IconSymbol name="chart.line.uptrend.xyaxis" size={24} />}
           onPress={() => void 0}
         />
       </JView>

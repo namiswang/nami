@@ -141,7 +141,7 @@ export function JButton({
         return {
           backgroundColor: 'transparent',
           borderColor: 'transparent',
-          textColor: baseColor,
+          textColor: baseTextColor,
           borderWidth: 0
         }
       default:
@@ -251,10 +251,12 @@ const styles = StyleSheet.create({
     boxShadow: '0 1px 2px rgba(128, 128, 128, 0.2)'
   },
   textButton: {
-    padding: 8,
-    marginVertical: 2
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    borderColor: 'transparent',
+    boxShadow: 'none',
+    elevation: 0
   },
-
   // disabled
   disabledButton: {
     opacity: 0.5
@@ -262,7 +264,6 @@ const styles = StyleSheet.create({
   disabledText: {
     opacity: 0.8
   },
-
   // loading
   loadingButton: {
     flexDirection: 'row',
