@@ -23,7 +23,7 @@ export function JChart({
   height = 200,
   config = {}
 }: ChartProps) {
-  const [chartBackground, labelColor, barColor] = useColors(['elevatedBackground', 'text', 'primaryButtonBackground'])
+  const [chartBackground, labelColor, barColor] = useColors(['elevatedBackground', 'text', 'secondaryText'])
 
   switch (type) {
     case 'line':
