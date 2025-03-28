@@ -8,8 +8,8 @@ export function BillList() {
   useEffect(() => {
     const mockData = [
       {
-        id: '2025-01-01',
-        date: new Date('2025-01-01'),
+        id: 'today',
+        date: new Date(),
         totalIncome: 20,
         totalExpense: 4.5,
         transactions: [
@@ -28,8 +28,48 @@ export function BillList() {
         ]
       },
       {
-        id: '2025-01-02',
-        date: new Date('2025-01-02'),
+        id: 'yesterday',
+        date: new Date(new Date().setDate(new Date().getDate() - 1)),
+        totalIncome: 20,
+        totalExpense: 4.5,
+        transactions: [
+          {
+            id: '接单',
+            type: 'income',
+            money: 20,
+            category: '接单'
+          },
+          {
+            id: '三餐',
+            type: 'expense',
+            money: 4.5,
+            category: '三餐'
+          }
+        ]
+      },
+      {
+        id: 'beforeYesterday',
+        date: new Date(new Date().setDate(new Date().getDate() - 2)),
+        totalIncome: 20,
+        totalExpense: 4.5,
+        transactions: [
+          {
+            id: '接单',
+            type: 'income',
+            money: 20,
+            category: '接单'
+          },
+          {
+            id: '三餐',
+            type: 'expense',
+            money: 4.5,
+            category: '三餐'
+          }
+        ]
+      },
+      {
+        id: 'lastYear',
+        date: new Date('2024-12-01'),
         totalIncome: 20,
         totalExpense: 4.5,
         transactions: [

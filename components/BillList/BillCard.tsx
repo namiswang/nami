@@ -1,7 +1,10 @@
+import { ViewStyle } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 import { JView } from '@/components/ui/JView'
 import { JText } from '@/components/ui/JText'
 import { useColors } from '@/hooks/useColor'
-import { ViewStyle } from 'react-native'
+import { useFormattedDate } from '@/hooks/useDateFormat'
 
 interface Props {
   item: Record<string, any>
@@ -9,6 +12,8 @@ interface Props {
 }
 
 export function BillCard({ item, style = {} }: Props) {
+  const { t } = useTranslation()
+  const { dateLabel, formattedDate } = useFormattedDate(item.date)
   const [
     secondaryText,
     backgroundColor,
@@ -41,13 +46,13 @@ export function BillCard({ item, style = {} }: Props) {
         }}
       >
         <JView row align="center">
-          <JText bold>03.27</JText>
-          <JText marginLeft={5} bold>昨天</JText>
+          <JText bold>{formattedDate}</JText>
+          {dateLabel && <JText marginLeft={5} bold>{dateLabel}</JText>}
         </JView>
 
         <JView row align="center">
-          {item.totalIncome && <JText bold>收:{item.totalIncome}</JText>}
-          {item.totalExpense && <JText bold marginLeft={5}>支:{item.totalExpense}</JText>}
+          {item.totalIncome && <JText bold>{t('ledger.income')}:{item.totalIncome}</JText>}
+          {item.totalExpense && <JText bold marginLeft={5}>{t('ledger.expense')}:{item.totalExpense}</JText>}
         </JView>
       </JView>
 

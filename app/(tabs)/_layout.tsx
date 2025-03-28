@@ -11,9 +11,11 @@ import { WalletHeader } from '@/components/headers/WalletHeader'
 import * as Haptics from 'expo-haptics'
 import { JButton } from '@/components/ui/JButton'
 import { JView } from '@/components/ui/JView'
+import { useTranslation } from 'react-i18next'
 
 export default function TabLayout() {
   const { mode } = useSettingStore()
+  const { t } = useTranslation()
 
   return (
     <JView flex={1}>
@@ -32,7 +34,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: '账单',
+            title: t('tab.bill'),
             tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
             header: () => <BillHeader />,
             tabBarItemStyle: {
@@ -44,7 +46,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="wallet"
           options={{
-            title: '资产',
+            title: t('tab.assets'),
             tabBarIcon: ({ color }) => <IconSymbol size={28} name="creditcard.fill" color={color} />,
             header: () => <WalletHeader />,
             tabBarItemStyle: {

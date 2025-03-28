@@ -4,8 +4,11 @@ import { JView } from '@/components/ui/JView'
 import { JText } from '@/components/ui/JText'
 import { IconSymbol } from '@/components/ui/IconSymbol'
 import { Colors } from '@/constants/Colors'
+import { useTranslation } from 'react-i18next'
 
 export function LedgerShownCard() {
+  const { t } = useTranslation()
+
   const color = Colors.dark.text
 
   return (
@@ -18,7 +21,7 @@ export function LedgerShownCard() {
       >
         <JView style={styles.header}>
           <JView style={styles.balanceInfo}>
-            <JText size={10} color={color}>月结余</JText>
+            <JText size={12} color={color}>{t('ledger.monthlyBalance')}</JText>
             <JText bold size={24} marginTop={2} color={color}>1000</JText>
           </JView>
 
@@ -37,11 +40,11 @@ export function LedgerShownCard() {
 
         <JView row style={styles.summary}>
           <JText>
-            <JText color={color}>月收入：</JText>
+            <JText color={color}>{t('ledger.monthlyIncome')}: </JText>
             <JText bold color={color}>12000</JText>
           </JText>
-          <JText marginLeft={10}>
-            <JText color={color}>月支出：</JText>
+          <JText marginLeft={15}>
+            <JText color={color}>{t('ledger.monthlyExpense')}: </JText>
             <JText bold color={color}>11000</JText>
           </JText>
         </JView>

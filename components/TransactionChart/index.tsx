@@ -6,10 +6,12 @@ import { JText } from '@/components/ui/JText'
 import React, { useState } from 'react'
 import { useColor } from '@/hooks/useColor'
 import { IconSymbol } from '@/components/ui/IconSymbol'
+import { useTranslation } from 'react-i18next'
 
 export function TransactionChart() {
   const [viewWidth, setViewWidth] = useState(0)
 
+  const { t } = useTranslation()
   const backgroundColor = useColor('elevatedBackground')
 
   const week = [
@@ -49,12 +51,12 @@ export function TransactionChart() {
         paddingHorizontal={12}
       >
         <JView row justify="space-between" align="center">
-          <JText size={16} bold>最近七日支出</JText>
+          <JText size={16} bold>{t('ledger.recentExpense')}</JText>
           <IconSymbol name="ellipsis" size={20} />
         </JView>
 
         <JView row align="center" marginTop={2}>
-          <JText size={12} color="#999">共计</JText>
+          <JText size={12} color="#999">{t('ledger.total')}</JText>
           <JText size={12} color="#999" marginLeft={2}>0.00</JText>
         </JView>
       </JView>
