@@ -52,7 +52,7 @@ export function JView({
   style,
   ...otherProps
 }: ThemedViewProps) {
-  const backgroundColor = useColor('background')
+  const backgroundColor = useColor('pageBackground')
 
   return <View
     style={[

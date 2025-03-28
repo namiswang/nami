@@ -40,7 +40,8 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      router.replace('/(tabs)')
+      // router.replace('/(tabs)')
+      router.replace('/identify')
     }
   }, [loaded])
 

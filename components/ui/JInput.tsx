@@ -50,7 +50,7 @@ export const JInput = forwardRef<TextInput, InputProps>(({
   const [inputValue, setInputValue] = useState(value || '')
   const [isFocused, setIsFocused] = useState(false)
 
-  const [iconColor, text, dangerText] = useColors(['icon', 'text', 'dangerText'])
+  const [iconColor, text, dangerText] = useColors(['secondaryText', 'text', 'dangerText'])
 
   const showClearButton = clearable && inputValue.length > 0
 

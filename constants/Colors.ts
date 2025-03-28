@@ -1,57 +1,59 @@
 export const Colors = {
   light: {
-    headerBackground: '#fff',
-    background: '#f8f8f8',
+    // background
+    pageBackground: '#f5f5f5',
+    elevatedBackground: '#fff',
 
-    icon: '#687076',
-
-    // JText
+    // text
     text: '#11181C',
-    dangerText: '#D72222',
+    secondaryText: '#687076',
+    dangerText: '#d72222',
 
-    // JButton
-    buttonBorder: '#E3E3E3',
-    normalButtonText: '#0D0D0D',
-    normalButtonBackground: '#FFFFFF',
-    lightNormalColor: '#F5F5F5',
-    primaryButtonText: '#fff',
-    primaryButtonBackground: '#171719',
+    // border
+    border: '#E3E3E3',
+    secondaryBorder: '#F0F0F0',
+
+    // button
+    normalButtonBackground: '#fff',
+    lightNormalColor: '#f5f5f5',
+    primaryButtonText: '#ecedee',
+    primaryButtonBackground: '#171717',
     lightPrimaryColor: 'rgba(23, 23, 25, 0.1)',
-    dangerButtonBackground: '#D72222',
+    dangerButtonBackground: '#d72222',
     dangerButtonText: '#fff',
     lightDangerColor: 'rgba(215, 34, 34, 0.1)',
 
-    // JChart
-    chartBackground: '#fff',
-    labelColor: '#cccccc',
-    barColor: '#171719'
+    // bill
+    income: '#16A34A',
+    expense: '#DC2626',
   },
 
   dark: {
-    headerBackground: '#171717',
-    background: '#101010',
+    // background
+    pageBackground: '#101010',
+    elevatedBackground: '#171717',
 
-    icon: '#9BA1A6',
-
-    // JText
-    text: '#ECEDEE',
+    // text
+    text: '#ecedef',
+    secondaryText: '#9BA1A6',
     dangerText: '#9c2c2c',
 
-    // JButton
-    buttonBorder: 'rgba(227, 227, 227, 0.2)',
-    normalButtonText: '#FAFAFA',
-    normalButtonBackground: '#232325',
-    lightNormalColor: 'rgba(35, 35, 37, 0.6)',
-    primaryButtonText: '#11181C',
-    primaryButtonBackground: '#F9F9F9',
+    // border
+    border: '#2E2E2E',
+    secondaryBorder: '#252525',
+
+    // button
+    normalButtonBackground: '#171717',
+    lightNormalColor: '#101010',
+    primaryButtonText: '#11181d',
+    primaryButtonBackground: '#fff',
     lightPrimaryColor: 'rgba(249, 249, 249, 0.15)',
     dangerButtonBackground: '#9c2c2c',
     dangerButtonText: '#fff',
     lightDangerColor: 'rgba(156, 44, 44, 0.15)',
 
-    // JChart
-    chartBackground: '#171717',
-    labelColor: '#F9F9F9',
-    barColor: '#F9F9F9'
+    // bill
+    income: '#22C55E',
+    expense: '#EF4444',
   }
 }

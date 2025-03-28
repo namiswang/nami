@@ -84,7 +84,7 @@ export function JButton({
     lightDangerColor,
     lightNormalColor
   ] = useColors([
-    'normalButtonText',
+    'text',
     'normalButtonBackground',
     'primaryButtonText',
     'primaryButtonBackground',

@@ -7,7 +7,7 @@ import { JView } from '@/components/ui/JView'
 import { useColor } from '@/hooks/useColor'
 
 export function WalletHeader() {
-  const headerBackground = useColor('headerBackground')
+  const headerBackground = useColor('elevatedBackground')
 
   return <JView style={{
     justifyContent: 'flex-end',

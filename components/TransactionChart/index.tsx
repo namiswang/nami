@@ -10,7 +10,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol'
 export function TransactionChart() {
   const [viewWidth, setViewWidth] = useState(0)
 
-  const backgroundColor = useColor('headerBackground')
+  const backgroundColor = useColor('elevatedBackground')
 
   const week = [
     t('week.monday'),

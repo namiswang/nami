@@ -2,8 +2,7 @@ import React from 'react'
 import { View, Dimensions, ViewStyle } from 'react-native'
 import { LineChart, BarChart, PieChart } from 'react-native-chart-kit'
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart'
-import { useColor, useColors } from '@/hooks/useColor'
-import { JText } from '@/components/ui/JText'
+import { useColors } from '@/hooks/useColor'
 
 const screenWidth = Dimensions.get('window').width
 
@@ -24,7 +23,7 @@ export function JChart({
   height = 200,
   config = {}
 }: ChartProps) {
-  const [chartBackground, labelColor, barColor] = useColors(['chartBackground', 'labelColor', 'barColor'])
+  const [chartBackground, labelColor, barColor] = useColors(['elevatedBackground', 'text', 'primaryButtonBackground'])
 
   switch (type) {
     case 'line':
@@ -78,7 +77,7 @@ export function JChart({
             decimalPlaces: 2, // 小数点
             color: (opacity = 1) => `${barColor}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`,
             labelColor: (opacity = 1) => `${labelColor}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`,
-            ...config,
+            ...config
           }}
         />
       )
