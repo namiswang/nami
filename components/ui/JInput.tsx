@@ -1,6 +1,5 @@
 import React, { useState, forwardRef } from 'react'
 import {
-  View,
   TextInput,
   StyleSheet,
   ViewStyle,
@@ -11,6 +10,7 @@ import {
 import { IconSymbol, IconSymbolName } from './IconSymbol'
 import { useColors } from '@/hooks/useColor'
 import { JText } from '@/components/ui/JText'
+import { JView } from '@/components/ui/JView'
 
 interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   label?: string
@@ -50,7 +50,7 @@ export const JInput = forwardRef<TextInput, InputProps>(({
   const [inputValue, setInputValue] = useState(value || '')
   const [isFocused, setIsFocused] = useState(false)
 
-  const [iconColor, text, dangerText] = useColors(['icon', 'text', 'dangerText'])
+  const [iconColor, text, dangerText] = useColors(['secondaryText', 'text', 'dangerText'])
 
   const showClearButton = clearable && inputValue.length > 0
 
@@ -66,14 +66,14 @@ export const JInput = forwardRef<TextInput, InputProps>(({
   }
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <JView style={[styles.container, containerStyle]}>
       {label && (
         <JText bold size={14} marginBottom={8} style={labelStyle}>
           {label}
         </JText>
       )}
 
-      <View style={[
+      <JView style={[
         styles.inputContainer,
         isFocused && { borderColor: 'rgb(228, 230, 233)' },
         error && { borderColor: dangerText }
@@ -104,7 +104,7 @@ export const JInput = forwardRef<TextInput, InputProps>(({
           onBlur={() => setIsFocused(false)}
           {...rest}
         />
-        <View style={styles.rightIconContainer}>
+        <JView style={styles.rightIconContainer}>
           {showClearButton && (
             <TouchableOpacity
               style={styles.suffix}
@@ -141,9 +141,9 @@ export const JInput = forwardRef<TextInput, InputProps>(({
               />
             </TouchableOpacity>
           )}
-        </View>
-      </View>
-    </View>
+        </JView>
+      </JView>
+    </JView>
   )
 })
 

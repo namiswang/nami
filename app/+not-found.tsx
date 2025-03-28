@@ -7,7 +7,7 @@ export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
-      <JView themed style={styles.container}>
+      <JView themed flex={1} style={styles.container}>
         <JText>This screen doesn't exist.</JText>
         <Link href="/" style={styles.link}>
           <JText>Go to home screen!</JText>

@@ -11,7 +11,7 @@ import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { JView } from '@/components/ui/JView'
 import { JText } from '@/components/ui/JText'
-import { DarkModeTool } from '@/components/DarkModeTool'
+import { ThemeModeTool } from '@/components/ThemeModeTool'
 import { useSettingStore } from '@/store'
 
 interface Props {
@@ -76,11 +76,17 @@ export function AuthLayout({ children, title }: Props) {
   })
 
   return (
-    <JView themed>
+    <JView flex={1} themed>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <JView>
+        <JView flex={1}>
           <Animated.View style={[styles.scrollContent, { transform: [{ translateY }] }]}>
-            <DarkModeTool />
+            <ThemeModeTool
+              style={{
+                position: 'absolute',
+                top: 60,
+                right: 20
+              }}
+            />
             <Image source={logo} style={styles.logo} resizeMode="contain" />
             <JText size={24} marginVertical={20} bold center>{title}</JText>
             {children}

@@ -1,15 +1,19 @@
-import React, { useMemo } from 'react'
-import { StyleSheet } from 'react-native'
-import { JView } from '@/components/ui/JView'
+import React from 'react'
+import { ViewStyle } from 'react-native'
 import { JButton } from '@/components/ui/JButton'
 import { IconSymbol } from '@/components/ui/IconSymbol'
 import { useSettingStore } from '@/store'
+import { JView } from '@/components/ui/JView'
 
-export const DarkModeTool = React.memo(() => {
+interface Props {
+  style?: ViewStyle
+}
+
+export const ThemeModeTool = React.memo<Props>(({ style }) => {
   const { mode, setMode } = useSettingStore()
 
   return (
-    <JView style={styles.darkModeTool}>
+    <JView style={style}>
       <JButton
         width={20}
         height={20}
@@ -20,12 +24,4 @@ export const DarkModeTool = React.memo(() => {
       />
     </JView>
   )
-})
-
-const styles = StyleSheet.create({
-  darkModeTool: {
-    position: 'absolute',
-    top: 60,
-    right: 20
-  }
 })

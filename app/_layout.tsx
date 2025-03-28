@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
-import { Redirect, Stack, useNavigationContainerRef } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { Redirect, router, Stack, useNavigationContainerRef } from 'expo-router'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import Toast from 'react-native-toast-message'
-import { CustomToast } from '@/components/ui/JToast'
+import { CustomToast } from '@/components/ui/JMessage'
 import { useColorScheme } from 'react-native'
 import '../i18n'
 import { useSettingStore } from '@/store'
@@ -22,6 +22,8 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
   })
 
+  const showHeaderBarRoutes = ['index']
+
   // 初始化mode
   useEffect(() => {
     setMode(colorScheme ?? 'light')
@@ -36,6 +38,13 @@ export default function RootLayout() {
     return navigationRef.addListener('state', () => Toast.hide())
   }, [navigationRef])
 
+  useEffect(() => {
+    if (loaded) {
+      router.replace('/(tabs)')
+      // router.replace('/identify')
+    }
+  }, [loaded])
+
   if (!loaded) return null
 
   return (
@@ -46,8 +55,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-
-      <Redirect href="/identify" />
 
       {/*顶部状态栏*/}
       <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />

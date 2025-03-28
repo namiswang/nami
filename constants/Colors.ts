@@ -1,44 +1,59 @@
-const tintColorLight = '#0a7ea4'
-const tintColorDark = '#fff'
-
 export const Colors = {
   light: {
-    background: '#fff',
+    // background
+    pageBackground: '#f5f5f5',
+    elevatedBackground: '#fff',
+
+    // text
     text: '#11181C',
-    dangerText: '#D72222',
+    secondaryText: '#687076',
+    dangerText: '#d72222',
 
-    tint: tintColorLight,
-    icon: '#687076',
+    // border
+    border: '#E3E3E3',
+    secondaryBorder: '#F0F0F0',
 
-    buttonBorder: '#E3E3E3',
+    // button
+    normalButtonBackground: '#fff',
+    lightNormalColor: '#f5f5f5',
+    primaryButtonText: '#ecedee',
+    primaryButtonBackground: '#171717',
+    lightPrimaryColor: 'rgba(23, 23, 25, 0.1)',
+    dangerButtonBackground: '#d72222',
+    dangerButtonText: '#fff',
+    lightDangerColor: 'rgba(215, 34, 34, 0.1)',
 
-    normalButtonText: '#0D0D0D',
-    normalButtonBackground: '#FFFFFF',
-
-    primaryButtonText: '#fff',
-    primaryButtonBackground: '#171719',
-
-    dangerButtonBackground: '#D72222',
-    dangerButtonText: '#fff'
+    // bill
+    income: '#16A34A',
+    expense: '#DC2626',
   },
 
   dark: {
-    background: '#121212',
-    text: '#ECEDEE',
+    // background
+    pageBackground: '#101010',
+    elevatedBackground: '#171717',
+
+    // text
+    text: '#ecedef',
+    secondaryText: '#9BA1A6',
     dangerText: '#9c2c2c',
 
-    tint: tintColorDark,
-    icon: '#9BA1A6',
+    // border
+    border: '#2E2E2E',
+    secondaryBorder: '#252525',
 
-    buttonBorder: 'rgba(227, 227, 227, 0.2)',
-
-    normalButtonText: '#FAFAFA',
-    normalButtonBackground: '#232325',
-
-    primaryButtonText: '#11181C',
-    primaryButtonBackground: '#F9F9F9',
-
+    // button
+    normalButtonBackground: '#171717',
+    lightNormalColor: '#101010',
+    primaryButtonText: '#11181d',
+    primaryButtonBackground: '#fff',
+    lightPrimaryColor: 'rgba(249, 249, 249, 0.15)',
     dangerButtonBackground: '#9c2c2c',
-    dangerButtonText: '#fff'
+    dangerButtonText: '#fff',
+    lightDangerColor: 'rgba(156, 44, 44, 0.15)',
+
+    // bill
+    income: '#22C55E',
+    expense: '#EF4444',
   }
 }

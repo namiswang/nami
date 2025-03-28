@@ -3,6 +3,7 @@ import { useColor } from '@/hooks/useColor'
 
 export type ThemedTextProps = TextProps & {
   size?: number
+  color?: string
   bold?: boolean
   center?: boolean
   marginHorizontal?: number
@@ -16,9 +17,10 @@ export type ThemedTextProps = TextProps & {
 
 export function JText({
   style,
+  color,
   bold = false,
   center = false,
-  size = 16,
+  size = 14,
   margin = undefined,
   marginHorizontal = undefined,
   marginVertical = undefined,
@@ -28,13 +30,13 @@ export function JText({
   marginRight = undefined,
   ...rest
 }: ThemedTextProps) {
-  const color = useColor('text')
+  const themeColor = useColor('text')
 
   return (
     <Text
       style={[
         {
-          color,
+          color: color ? color : themeColor,
           fontSize: size,
           fontWeight: bold ? 'bold' : 'normal',
           textAlign: center ? 'center' : 'auto',
