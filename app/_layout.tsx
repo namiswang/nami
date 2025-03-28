@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Redirect, Stack, useNavigationContainerRef } from 'expo-router'
+import { Redirect, router, Stack, useNavigationContainerRef } from 'expo-router'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
@@ -38,6 +38,12 @@ export default function RootLayout() {
     return navigationRef.addListener('state', () => Toast.hide())
   }, [navigationRef])
 
+  useEffect(() => {
+    if (loaded) {
+      router.replace('/(tabs)')
+    }
+  }, [loaded])
+
   if (!loaded) return null
 
   return (
@@ -48,8 +54,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-
-      <Redirect href="/(tabs)" />
 
       {/*顶部状态栏*/}
       <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />

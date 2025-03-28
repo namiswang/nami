@@ -3,7 +3,6 @@ export const Colors = {
     headerBackground: '#fff',
     background: '#f8f8f8',
 
-    tint: '#0a7ea4',
     icon: '#687076',
 
     // JText
@@ -32,7 +31,6 @@ export const Colors = {
     headerBackground: '#171717',
     background: '#101010',
 
-    tint: '#0a7ea4',
     icon: '#9BA1A6',
 
     // JText
