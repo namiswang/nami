@@ -69,7 +69,7 @@ export function BillCard({ item, style = {} }: Props) {
           }}
         >
           <JView row align="center">
-            <JText style={{
+            <JView style={{
               width: 5,
               height: 5,
               marginRight: 15,
