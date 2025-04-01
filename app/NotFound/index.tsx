@@ -1,7 +1,7 @@
 import { Link, Stack } from 'expo-router'
 import { StyleSheet } from 'react-native'
-import { JText } from '@/components/ui/JText'
-import { JView } from '@/components/ui/JView'
+import { JText } from '@/components/JText'
+import { JView } from '@/components/JView'
 
 export default function NotFoundScreen() {
   return (

@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native'
-import { JText } from '@/components/ui/JText'
+import { JText } from '@/components/JText'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 
-export default function Wallet() {
+export function Wallet() {
   return (
     <ParallaxScrollView>
       {Array.from({ length: 40 }).map((_, i) => (

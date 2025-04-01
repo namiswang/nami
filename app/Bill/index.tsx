@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
-import { LedgerShownCard } from '@/components/LedgerShownCard'
-import { TransactionChart } from '@/components/TransactionChart'
-import { BillList } from '@/components/BillList'
+import { LedgerShownCard } from '@/app/Bill/components/LedgerShownCard'
+import { TransactionChart } from '@/app/Bill/components/TransactionChart'
+import { BillList } from '@/app/Bill/components/BillList'
 
-export default function Bill() {
+export  function Bill() {
   return (
     <ParallaxScrollView>
       <LedgerShownCard />

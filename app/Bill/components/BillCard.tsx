@@ -1,8 +1,8 @@
 import { ViewStyle } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import { JView } from '@/components/ui/JView'
-import { JText } from '@/components/ui/JText'
+import { JView } from '@/components/JView'
+import { JText } from '@/components/JText'
 import { useColors } from '@/hooks/useColor'
 import { useFormattedDate } from '@/hooks/useDateFormat'
 

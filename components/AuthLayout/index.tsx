@@ -9,8 +9,8 @@ import {
 import { useState, useEffect, useRef, ReactNode, useCallback } from 'react'
 import { Keyboard as RNKeyboard } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
-import { JView } from '@/components/ui/JView'
-import { JText } from '@/components/ui/JText'
+import { JView } from '@/components/JView'
+import { JText } from '@/components/JText'
 import { ThemeModeTool } from '@/components/ThemeModeTool'
 import { useSettingStore } from '@/store'
 

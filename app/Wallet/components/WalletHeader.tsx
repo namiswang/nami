@@ -1,11 +1,12 @@
-import { JText } from '@/components/ui/JText'
-import { JButton } from '@/components/ui/JButton'
-import { IconSymbol } from '@/components/ui/IconSymbol'
+import { JText } from '@/components/JText'
+import { JButton } from '@/components/JButton'
+import { IconSymbol } from '@/components/IconSymbol'
 import React from 'react'
-import { JView } from '@/components/ui/JView'
+import { ThemeModeTool } from '@/components/ThemeModeTool'
+import { JView } from '@/components/JView'
 import { useColor } from '@/hooks/useColor'
 
-export function BillHeader() {
+export function WalletHeader() {
   const headerBackground = useColor('elevatedBackground')
 
   return <JView style={{
@@ -31,26 +32,11 @@ export function BillHeader() {
       </JView>
 
       <JView row align="center">
-        <JText bold size={16} marginRight={4}>2025-01-01</JText>
-        <IconSymbol name="chevron.down" size={16} />
+        <JText bold size={16} marginRight={4}>资产管理</JText>
       </JView>
 
       <JView style={{ width: '25%', flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <JButton
-          width={20}
-          height={20}
-          variant="text"
-          text={<IconSymbol name="calendar" size={24} />}
-          onPress={() => void 0}
-        />
-        <JButton
-          width={20}
-          height={20}
-          style={{ marginLeft: 10 }}
-          variant="text"
-          text={<IconSymbol name="chart.line.uptrend.xyaxis" size={24} />}
-          onPress={() => void 0}
-        />
+        <ThemeModeTool />
       </JView>
     </JView>
   </JView>

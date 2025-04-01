@@ -1,11 +1,11 @@
-import { JView } from '@/components/ui/JView'
-import { JChart } from '@/components/ui/JChart'
+import { JView } from '@/components/JView'
+import { JChart } from '@/components/JChart'
 import dayjs from 'dayjs'
 import { t } from 'i18next'
-import { JText } from '@/components/ui/JText'
+import { JText } from '@/components/JText'
 import React, { useState } from 'react'
 import { useColor } from '@/hooks/useColor'
-import { IconSymbol } from '@/components/ui/IconSymbol'
+import { IconSymbol } from '@/components/IconSymbol'
 import { useTranslation } from 'react-i18next'
 
 export function TransactionChart() {

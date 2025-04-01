@@ -1,30 +1,53 @@
-import { useEffect, useState } from 'react'
-import { Redirect, router, Stack, useNavigationContainerRef } from 'expo-router'
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
-import { useFonts } from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
-import { StatusBar } from 'expo-status-bar'
-import 'react-native-reanimated'
-import Toast from 'react-native-toast-message'
-import { CustomToast } from '@/components/ui/JMessage'
+import React, { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
-import '../i18n'
-import { useSettingStore } from '@/store'
+import { useFonts } from 'expo-font'
+import { StatusBar } from 'expo-status-bar'
+import Toast from 'react-native-toast-message'
+import * as SplashScreen from 'expo-splash-screen'
+import { CustomToast } from '@/components/JMessage'
+import { useNavigationContainerRef } from 'expo-router'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { DarkTheme, DefaultTheme, ThemeProvider, useNavigation } from '@react-navigation/native'
+import '../i18n/index'
+import { useDrawerStore, useSettingStore } from '@/store'
+import { HapticTab } from '@/components/HapticTab'
+import { IconSymbol } from '@/components/IconSymbol'
+import { AddBillButton } from '@/components/AddBillButton'
+import { DynamicDrawer } from '@/components/DynamicDrawer'
+import { Bill } from '@/app/Bill'
+import { Wallet } from '@/app/Wallet'
+import { BillHeader } from '@/app/Bill/components/BillHeader'
+import { WalletHeader } from '@/app/Wallet/components/WalletHeader'
 
-// 防止启动画面在资产加载完成之前自动隐藏。
 SplashScreen.preventAutoHideAsync()
+
+export type DrawerNavigator = {
+  Tabs: undefined
+  BillEditor: undefined
+}
+
+export type BottomTabNavigator = {
+  Bill: undefined
+  AddBill: undefined
+  Wallet: undefined
+}
+
+const Drawer = createDrawerNavigator<DrawerNavigator>()
+const Tab = createBottomTabNavigator<BottomTabNavigator>()
 
 export default function RootLayout() {
   const { mode, setMode } = useSettingStore()
   const colorScheme = useColorScheme()
   const navigationRef = useNavigationContainerRef()
+
+  const { drawerContent, drawerOptions } = useDrawerStore()
+
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
   })
 
-  const showHeaderBarRoutes = ['index']
-
-  // 初始化mode
   useEffect(() => {
     setMode(colorScheme ?? 'light')
   }, [])
@@ -33,30 +56,28 @@ export default function RootLayout() {
     if (loaded) SplashScreen.hideAsync()
   }, [loaded])
 
-  // 切换页面关闭当前页面的toast
   useEffect(() => {
     return navigationRef.addListener('state', () => Toast.hide())
   }, [navigationRef])
-
-  useEffect(() => {
-    if (loaded) {
-      router.replace('/(tabs)')
-      // router.replace('/identify')
-    }
-  }, [loaded])
 
   if (!loaded) return null
 
   return (
     <ThemeProvider value={mode === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="identify" options={{ headerShown: false }} />
-        <Stack.Screen name="verify" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Drawer.Navigator
+          initialRouteName="Tabs"
+          drawerContent={() => <DynamicDrawer content={drawerContent} />}
+          screenOptions={drawerOptions}
+        >
+          <Drawer.Screen
+            name="Tabs"
+            component={TabsNavigator}
+            options={{ headerShown: false }}
+          />
+        </Drawer.Navigator>
+      </GestureHandlerRootView>
 
-      {/*顶部状态栏*/}
       <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />
 
       <Toast
@@ -65,5 +86,48 @@ export default function RootLayout() {
         }}
       />
     </ThemeProvider>
+  )
+}
+
+function TabsNavigator() {
+  const navigation = useNavigation()
+  const { drawerOptions } = useDrawerStore()
+
+  const NullComponent = () => null
+
+  useEffect(() => {
+    navigation.setOptions(drawerOptions)
+  }, [drawerOptions])
+
+  return (
+    <Tab.Navigator initialRouteName="Bill">
+      <Tab.Screen
+        name="Bill"
+        component={Bill}
+        options={{
+          header: (props) => <BillHeader />,
+          tabBarIcon: ({ color, size }) => <IconSymbol color={color} name="house.fill" size={24} />,
+          tabBarButton: (props) => <HapticTab {...props} />
+        }}
+      />
+
+      <Tab.Screen
+        name="AddBill"
+        component={NullComponent}
+        options={{
+          tabBarButton: (props) => <AddBillButton {...props} />
+        }}
+      />
+
+      <Tab.Screen
+        name="Wallet"
+        component={Wallet}
+        options={{
+          header: (props) => <WalletHeader />,
+          tabBarIcon: ({ color, size }) => <IconSymbol color={color} name="creditcard.fill" size={24} />,
+          tabBarButton: (props) => <HapticTab {...props} />
+        }}
+      />
+    </Tab.Navigator>
   )
 }

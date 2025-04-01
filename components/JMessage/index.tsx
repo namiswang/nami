@@ -1,10 +1,10 @@
 import React from 'react'
 import Toast from 'react-native-toast-message'
 import { StyleSheet } from 'react-native'
-import { IconSymbol, IconSymbolName } from './IconSymbol'
+import { IconSymbol, IconSymbolName } from '../IconSymbol'
 import { ToastShowParams } from 'react-native-toast-message/lib/src/types'
-import { JText } from '@/components/ui/JText'
-import { JView } from '@/components/ui/JView'
+import { JText } from '@/components/JText'
+import { JView } from '@/components/JView'
 
 const config = {
   success: {
