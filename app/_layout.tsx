@@ -15,11 +15,11 @@ import { useDrawerStore, useSettingStore } from '@/store'
 import { HapticTab } from '@/components/HapticTab'
 import { IconSymbol } from '@/components/IconSymbol'
 import { AddBillButton } from '@/components/AddBillButton'
-import { DynamicDrawer } from '@/components/DynamicDrawer'
-import { Bill } from '@/app/Bill'
-import { Wallet } from '@/app/Wallet'
-import { BillHeader } from '@/app/Bill/components/BillHeader'
-import { WalletHeader } from '@/app/Wallet/components/WalletHeader'
+import DynamicDrawer from '@/components/DynamicDrawer'
+import Bill from '@/app/Bill'
+import Wallet from '@/app/Wallet'
+import BillHeader from '@/app/Bill/components/BillHeader'
+import WalletHeader from '@/app/Wallet/components/WalletHeader'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -42,7 +42,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme()
   const navigationRef = useNavigationContainerRef()
 
-  const { drawerContent, drawerOptions } = useDrawerStore()
+  const { drawerOptions } = useDrawerStore()
 
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
@@ -67,7 +67,7 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Drawer.Navigator
           initialRouteName="Tabs"
-          drawerContent={() => <DynamicDrawer content={drawerContent} />}
+          drawerContent={DynamicDrawer}
           screenOptions={drawerOptions}
         >
           <Drawer.Screen
@@ -105,8 +105,8 @@ function TabsNavigator() {
         name="Bill"
         component={Bill}
         options={{
-          header: (props) => <BillHeader />,
-          tabBarIcon: ({ color, size }) => <IconSymbol color={color} name="house.fill" size={24} />,
+          header: BillHeader,
+          tabBarIcon: ({ color, size }) => <IconSymbol color={color} name="house.fill" size={size} />,
           tabBarButton: (props) => <HapticTab {...props} />
         }}
       />

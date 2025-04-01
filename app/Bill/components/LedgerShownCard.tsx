@@ -6,7 +6,7 @@ import { IconSymbol } from '@/components/IconSymbol'
 import { Colors } from '@/constants/Colors'
 import { useTranslation } from 'react-i18next'
 
-export function LedgerShownCard() {
+export default function LedgerShownCard() {
   const { t } = useTranslation()
 
   const color = Colors.dark.text

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { JText } from '@/components/JText'
 import { JButton } from '@/components/JButton'
@@ -6,8 +6,9 @@ import { IconSymbol } from '@/components/IconSymbol'
 import { JView } from '@/components/JView'
 import { useColor } from '@/hooks/useColor'
 import { useDrawerStore } from '@/store'
+import MenuSider from '@/components/MenuSider'
 
-export function BillHeader() {
+export default function BillHeader() {
   const navigation = useNavigation<any>()
   const { setDrawerContent, setDrawerOptions } = useDrawerStore()
   const headerBackground = useColor('elevatedBackground')
@@ -41,7 +42,7 @@ export function BillHeader() {
                 drawerPosition: 'left',
                 drawerStyle: { width: 300 }
               })
-              setDrawerContent(<JText>menu drawer</JText>)
+              setDrawerContent(<MenuSider />)
               navigation.openDrawer()
             }}
           />

@@ -1,8 +1,7 @@
-import { StyleSheet } from 'react-native'
 import { JText } from '@/components/JText'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 
-export function Wallet() {
+export default function Wallet() {
   return (
     <ParallaxScrollView>
       {Array.from({ length: 40 }).map((_, i) => (
@@ -11,5 +10,3 @@ export function Wallet() {
     </ParallaxScrollView>
   )
 }
-
-const styles = StyleSheet.create({})

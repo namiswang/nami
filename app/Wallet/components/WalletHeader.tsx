@@ -1,12 +1,12 @@
+import React from 'react'
+import { JView } from '@/components/JView'
 import { JText } from '@/components/JText'
 import { JButton } from '@/components/JButton'
 import { IconSymbol } from '@/components/IconSymbol'
-import React from 'react'
 import { ThemeModeTool } from '@/components/ThemeModeTool'
-import { JView } from '@/components/JView'
 import { useColor } from '@/hooks/useColor'
 
-export function WalletHeader() {
+export default function WalletHeader() {
   const headerBackground = useColor('elevatedBackground')
 
   return <JView style={{

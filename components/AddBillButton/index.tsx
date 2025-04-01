@@ -1,10 +1,10 @@
 import React from 'react'
 import { Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { JText } from '@/components/JText'
 import { HapticTab } from '@/components/HapticTab'
 import { IconSymbol } from '@/components/IconSymbol'
 import { useDrawerStore } from '@/store'
+import BillEditor from '@/app/BillEditor'
 
 interface Props {
 }
@@ -24,7 +24,7 @@ export function AddBillButton(props: Props) {
           drawerPosition: 'right',
           drawerStyle: { width }
         })
-        setDrawerContent(<JText>Add Bill</JText>)
+        setDrawerContent(<BillEditor />)
         navigation.openDrawer()
       }}
     >
