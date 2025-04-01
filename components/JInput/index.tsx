@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   TextInputProps
 } from 'react-native'
-import { IconSymbol, IconSymbolName } from './IconSymbol'
+import { IconSymbol, IconSymbolName } from '../IconSymbol'
 import { useColors } from '@/hooks/useColor'
-import { JText } from '@/components/ui/JText'
-import { JView } from '@/components/ui/JView'
+import { JText } from '@/components/JText'
+import { JView } from '@/components/JView'
 
 interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   label?: string

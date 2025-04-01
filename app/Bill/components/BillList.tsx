@@ -1,5 +1,5 @@
-import { JView } from '@/components/ui/JView'
-import { BillCard } from '@/components/BillList/BillCard'
+import { JView } from '@/components/JView'
+import { BillCard } from '@/app/Bill/components/BillCard'
 import { useEffect, useState } from 'react'
 
 export function BillList() {

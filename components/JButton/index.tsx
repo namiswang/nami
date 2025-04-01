@@ -11,8 +11,8 @@ import {
 import { t } from 'i18next'
 import * as Haptics from 'expo-haptics'
 import { useColors } from '@/hooks/useColor'
-import { JText } from '@/components/ui/JText'
-import { JView } from '@/components/ui/JView'
+import { JText } from '@/components/JText'
+import { JView } from '@/components/JView'
 
 interface ButtonProps {
   type?: 'normal' | 'primary' | 'danger'

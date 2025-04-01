@@ -1,8 +1,8 @@
 import React from 'react'
 import { ImageBackground, Pressable, StyleSheet } from 'react-native'
-import { JView } from '@/components/ui/JView'
-import { JText } from '@/components/ui/JText'
-import { IconSymbol } from '@/components/ui/IconSymbol'
+import { JView } from '@/components/JView'
+import { JText } from '@/components/JText'
+import { IconSymbol } from '@/components/IconSymbol'
 import { Colors } from '@/constants/Colors'
 import { useTranslation } from 'react-i18next'
 

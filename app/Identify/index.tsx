@@ -3,8 +3,8 @@ import { TextInput } from 'react-native'
 import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { AuthLayout } from '@/components/AuthLayout'
-import { JButton } from '@/components/ui/JButton'
-import { JInput } from '@/components/ui/JInput'
+import { JButton } from '@/components/JButton'
+import { JInput } from '@/components/JInput'
 
 export default function Identify() {
   const [username, setUsername] = useState('')

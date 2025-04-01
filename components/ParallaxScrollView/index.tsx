@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react'
 import { StyleSheet, ViewStyle } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { JView } from '@/components/ui/JView'
-import { useBottomTabOverflow } from '@/components/ui/TabBarBackground'
+import { JView } from '@/components/JView'
+import { useBottomTabOverflow } from '@/components/TabBarBackground'
 
 type Props = PropsWithChildren<{
   style?: ViewStyle
