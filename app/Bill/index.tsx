@@ -5,7 +5,7 @@ import BillList from '@/app/Bill/components/BillList'
 
 export default function Bill() {
   return (
-    <ParallaxScrollView>
+    <ParallaxScrollView hasTabBar>
       <LedgerShownCard />
       <TransactionChart />
       <BillList />

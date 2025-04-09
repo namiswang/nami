@@ -24,6 +24,7 @@ export type ThemedViewProps = ViewProps & {
   paddingLeft?: number
   paddingRight?: number
   borderRadius?: number
+  background?: string
 };
 
 export function JView({
@@ -50,6 +51,7 @@ export function JView({
   paddingRight = undefined,
   borderRadius = 0,
   style,
+  background = undefined,
   ...otherProps
 }: ThemedViewProps) {
   const backgroundColor = useColor('pageBackground')
@@ -80,6 +82,7 @@ export function JView({
         borderRadius
       },
       themed && { backgroundColor },
+      background && { backgroundColor: background },
       style
     ]}
     {...otherProps}
