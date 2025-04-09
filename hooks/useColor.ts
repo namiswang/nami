@@ -8,7 +8,7 @@ type Config = {
 
 export function useColor(
   name: keyof typeof Colors.light & keyof typeof Colors.dark,
-  config: Config
+  config?: Config
 ) {
   const { mode: curMode } = useSettingStore()
   let finallyMode = config?.mode ?? curMode
@@ -21,7 +21,7 @@ export function useColor(
 
 export function useColors(
   names: (keyof typeof Colors.light & keyof typeof Colors.dark)[],
-  config: Config
+  config?: Config
 ) {
   const { mode: curMode } = useSettingStore()
   let finallyMode = config?.mode ?? curMode
