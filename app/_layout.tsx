@@ -20,7 +20,7 @@ import Bill from '@/app/Bill'
 import Wallet from '@/app/Wallet'
 import BillHeader from '@/app/Bill/components/BillHeader'
 import WalletHeader from '@/app/Wallet/components/WalletHeader'
-import LedgerStack from '@/app/router/Ledger'
+import LedgerStack from '@/router/Ledger'
 import { createStackNavigator } from '@react-navigation/stack'
 
 SplashScreen.preventAutoHideAsync()

@@ -8,7 +8,7 @@ import { JInput } from '@/components/JInput'
 
 export default function Identify() {
   const [username, setUsername] = useState('')
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
+  const [errorMsg, setErrorMsg] = useState<string>()
 
   const inputRef = useRef<TextInput>(null)
 
@@ -21,7 +21,7 @@ export default function Identify() {
       return
     }
     router.push({
-      pathname: '/verify',
+      pathname: '/Verify',
       params: { username }
     })
   }

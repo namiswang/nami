@@ -8,12 +8,9 @@ import { JText } from '@/components/JText'
 import { useColor } from '@/hooks/useColor'
 import { JMessage } from '@/components/JMessage'
 import { JView } from '@/components/JView'
+import { LedgerStackParamList } from '@/router/Ledger'
 
-type LedgerStackParamList = {
-  Ledger: undefined
-}
-
-type LedgerNavigationProp = StackNavigationProp<LedgerStackParamList>
+export type LedgerNavigationProp = StackNavigationProp<LedgerStackParamList>
 
 export default function Ledger() {
   const [list, setList] = useState<any>([])
@@ -23,11 +20,13 @@ export default function Ledger() {
   const textColor = useColor('secondaryText', { mode: 'dark' })
   const activeTextColor = useColor('income')
 
-  const actions = [
+  const getActions = (itemId: string) => [
     {
       label: '编辑',
       icon: 'square.and.pencil',
-      onPress: () => console.log('编辑'),
+      onPress: () => {
+        navigation.navigate('LedgerEditor', { id: itemId })
+      },
       style: { backgroundColor: '#4CAF50' }
     },
     {
@@ -44,19 +43,19 @@ export default function Ledger() {
         id: '1',
         title: '生活',
         cover: 'https://sns-webpic-qc.xhscdn.com/202504031742/36737006494973fdad530f2c08c0e851/1040g2sg31c3sd3l4gu705ofctal8c86lqcpcqto!nc_n_webp_mw_1',
-        actions
+        actions: getActions('1')
       },
       {
         id: '2',
         title: '旅游',
         cover: 'https://sns-webpic-qc.xhscdn.com/202504031744/88e8e948d3eba67e9f38f64a00ba4bec/1040g00831130asqkma005ofctal8c86l17dbjkg!nc_n_webp_mw_1',
-        actions
+        actions: getActions('2')
       },
       {
         id: '3',
         title: '投资',
         cover: 'https://sns-webpic-qc.xhscdn.com/202504031744/99b8b2ef4b27571b2ed8757f353d9b55/1040g2sg31f329gp76e705ofctal8c86lmjk5sc8!nc_n_webp_mw_1',
-        actions
+        actions: getActions('3')
       }
     ]
     setList(data)
@@ -64,6 +63,7 @@ export default function Ledger() {
   }, [])
 
   const changeLedger = (id: string) => {
+    if (curLedger === id) return
     setCurLedger(id)
     JMessage.success('切换成功')
   }
