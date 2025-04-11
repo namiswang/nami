@@ -41,19 +41,19 @@ export default function Ledger() {
     const data = [
       {
         id: '1',
-        title: '生活',
+        title: '生活你好吗',
         cover: 'https://sns-webpic-qc.xhscdn.com/202504031742/36737006494973fdad530f2c08c0e851/1040g2sg31c3sd3l4gu705ofctal8c86lqcpcqto!nc_n_webp_mw_1',
         actions: getActions('1')
       },
       {
         id: '2',
-        title: '旅游',
+        title: '旅游你好吗',
         cover: 'https://sns-webpic-qc.xhscdn.com/202504031744/88e8e948d3eba67e9f38f64a00ba4bec/1040g00831130asqkma005ofctal8c86l17dbjkg!nc_n_webp_mw_1',
         actions: getActions('2')
       },
       {
         id: '3',
-        title: '投资',
+        title: '投资你好吗',
         cover: 'https://sns-webpic-qc.xhscdn.com/202504031744/99b8b2ef4b27571b2ed8757f353d9b55/1040g2sg31f329gp76e705ofctal8c86lmjk5sc8!nc_n_webp_mw_1',
         actions: getActions('3')
       }

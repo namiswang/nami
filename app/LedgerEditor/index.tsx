@@ -14,6 +14,7 @@ import { LedgerTypes } from '@/constants/ledger'
 import { IconSymbol } from '@/components/IconSymbol'
 import { Grid } from '@/components/Grid'
 import { JMessage } from '@/components/JMessage'
+import { JCopy } from '@/components/JCopy'
 
 export type LedgerEditorRouteParams = {
   id?: string
@@ -23,6 +24,7 @@ interface ledgerInfo {
   title: string
   cover: string
   type: typeof LedgerTypes[number]['label']
+  code: string
   members: {
     id: string
     name: string
@@ -39,6 +41,7 @@ export default function LedgerEditor() {
     title: '',
     cover: '',
     type: '日常账本',
+    code: '邀请码',
     members: [
       {
         id: '1',
@@ -221,21 +224,12 @@ export default function LedgerEditor() {
               }
               children={(
                 <JView themed>
-                  <JView row justify="space-between" align="center">
-                    <JText size={16} bold marginBottom={20}>
-                      成员管理
-                    </JText>
-
-                    {/* TODO - copy完之后更换JButton */}
-                    {/* TODO - 封装JCopy */}
-                    <JButton
-                      text="添加成员"
-                      variant="text"
-                      padding={0}
-                      marginBottom={20}
-                      onPress={() => {
-                        JMessage.success('邀请码已复制， 请发送给好友')
-                      }}
+                  <JView row justify="space-between" align="center" marginBottom={10}>
+                    <JText bold size={16}>成员管理</JText>
+                    <JCopy
+                      displayText="添加成员"
+                      copyText={ledgerInfo.code}
+                      copiedText="已复制邀请码，请分享给好友"
                     />
                   </JView>
 
