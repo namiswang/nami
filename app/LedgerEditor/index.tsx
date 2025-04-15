@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ViewStyle, StyleSheet, ImageBackground, Image, ScrollView, Animated } from 'react-native'
+import { ViewStyle, StyleSheet, ImageBackground, Image, Animated } from 'react-native'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import { JView } from '@/components/JView'
@@ -12,8 +12,6 @@ import { JButton } from '@/components/JButton'
 import * as ImagePicker from 'expo-image-picker'
 import { LedgerTypes } from '@/constants/ledger'
 import { IconSymbol } from '@/components/IconSymbol'
-import { Grid } from '@/components/Grid'
-import { JMessage } from '@/components/JMessage'
 import { JCopy } from '@/components/JCopy'
 
 export type LedgerEditorRouteParams = {
@@ -23,7 +21,7 @@ export type LedgerEditorRouteParams = {
 interface ledgerInfo {
   title: string
   cover: string
-  type: typeof LedgerTypes[number]['label']
+  type: typeof LedgerTypes[number]['key']
   code: string
   members: {
     id: string
@@ -40,7 +38,7 @@ export default function LedgerEditor() {
   const [ledgerInfo, setLedgerInfo] = useState<ledgerInfo>({
     title: '',
     cover: '',
-    type: '日常账本',
+    type: 'daily',
     code: '邀请码',
     members: [
       {
@@ -181,7 +179,9 @@ export default function LedgerEditor() {
                   width="full"
                   height="full"
                 >
-                  <JText size={16} color="#687076">{ledgerInfo.type}</JText>
+                  <JText size={16} color="#687076">
+                    {LedgerTypes.find(item => item.key === ledgerInfo.type)?.label || '请选择账本类型'}
+                  </JText>
                 </JView>
               }
               children={(
@@ -192,12 +192,12 @@ export default function LedgerEditor() {
 
                   {LedgerTypes.map((item) => (
                     <JButton
-                      type={item.label === ledgerInfo.type ? 'primary' : 'normal'}
+                      type={item.key === ledgerInfo.type ? 'primary' : 'normal'}
                       height={60}
                       key={item.key}
                       text={item.label}
                       onPress={() => {
-                        setLedgerInfo(prev => ({ ...prev, type: item.label }))
+                        setLedgerInfo(prev => ({ ...prev, type: item.key }))
                         setTypeSheetVisible(false)
                       }}
                     />

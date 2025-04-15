@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { JText } from '@/components/JText'
@@ -11,31 +11,38 @@ export type ActionType = {
   icon?: IconSymbolName
   style?: ViewStyle
   textStyle?: TextStyle
+  iconProps?: any
 }
 
 interface Props {
   children: React.ReactNode
   actions: ActionType[]
-  value?: boolean
+  visible?: boolean
   onChange?: (isOpen: boolean) => void
 }
 
 export function JSwipeable({
   children,
   actions,
-  value,
+  visible,
   onChange
 }: Props) {
+  const [borderRadius, setBorderRadius] = useState({
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12
+  })
   const swipeableRef = useRef<any>(null)
 
   useEffect(() => {
-    if (value === undefined) return
-    if (value) {
+    if (visible === undefined) return
+    if (visible) {
       swipeableRef.current?.openRight()
     } else {
       swipeableRef.current?.close()
     }
-  }, [value])
+  }, [visible])
 
   const renderRightActions = () => {
     return (
@@ -46,14 +53,16 @@ export function JSwipeable({
             style={[styles.actionButton, action.style]}
             onPress={() => {
               action.onPress()
-              onChange?.(false)
+              setTimeout(() => {
+                swipeableRef.current?.close()
+              }, 300)
             }}
           >
             {action.icon && (
               <IconSymbol
                 name={action.icon}
                 size={24}
-                color="#fff"
+                {...(action?.iconProps || {})}
               />
             )}
             <JText style={[styles.actionText, action.textStyle]}>
@@ -72,10 +81,28 @@ export function JSwipeable({
       overshootRight={false}
       friction={2}
       rightThreshold={40}
-      onSwipeableWillOpen={() => onChange?.(true)}
-      onSwipeableWillClose={() => onChange?.(false)}
+      onSwipeableWillOpen={() => {
+        setBorderRadius({
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 0,
+          borderBottomLeftRadius: 12,
+          borderBottomRightRadius: 0
+        })
+        onChange?.(true)
+      }}
+      onSwipeableWillClose={() => {
+        setBorderRadius({
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+          borderBottomLeftRadius: 12,
+          borderBottomRightRadius: 12
+        })
+        onChange?.(false)
+      }}
     >
-      {children}
+      <JView style={[borderRadius, { overflow: 'hidden' }]}>
+        {children}
+      </JView>
     </Swipeable>
   )
 }
@@ -83,8 +110,8 @@ export function JSwipeable({
 const styles = StyleSheet.create({
   actionsContainer: {
     height: '100%',
-    borderTopRightRadius: 16,
-    borderBottomRightRadius: 16,
+    borderTopRightRadius: 12,
+    borderBottomRightRadius: 12,
     overflow: 'hidden'
   },
   actionButton: {

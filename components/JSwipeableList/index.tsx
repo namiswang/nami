@@ -35,7 +35,7 @@ export function JSwipeableList({ list, accordion = false, renderItem }: Props) {
         <JSwipeable
           key={item.id}
           actions={item.actions}
-          value={openItems.has(item.id)}
+          visible={openItems.has(item.id)}
           onChange={(isOpen) => handleSwipeChange(item.id, isOpen)}
         >
           {renderItem(item)}
