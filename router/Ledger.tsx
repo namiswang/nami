@@ -1,8 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import LedgerHeader from '../app/Ledger/components/LedgerHeader'
 import Ledger from '@/app/Ledger'
-import LedgerEditor, { LedgerEditorRouteParams } from '@/app/LedgerEditor'
+import LedgerHeader from '@/app/Ledger/components/LedgerHeader'
+import LedgerEditor from '@/app/LedgerEditor'
 import LedgerEditorHeader from '@/app/LedgerEditor/components/LedgerEditorHeader'
+
+export type LedgerEditorRouteParams = {
+  id?: string
+}
 
 export type LedgerStackParamList = {
   Ledger: undefined

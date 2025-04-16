@@ -53,7 +53,6 @@ export default {
     ledgerType: '账本类型',
     selectLedgerType: '请选择账本类型',
     ledgerMembers: '成员管理',
-    viewMembers: '查看成员',
     manageMembers: '成员管理',
     addMember: '添加成员',
     shareLedger: '已复制邀请码，请分享给好友',

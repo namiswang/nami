@@ -1,19 +1,19 @@
 import React, { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '@/router'
 import { IconSymbol } from '@/components/IconSymbol'
 import HeaderLayout from '@/components/HeaderLayout'
 import { JButton } from '@/components/JButton'
-import { LedgerNavigationProp } from '@/app/Ledger'
 import { JSheet } from '@/components/JSheet'
 import { JText } from '@/components/JText'
 import { JInput } from '@/components/JInput'
-import { useTranslation } from 'react-i18next'
 
 export default function LedgerHeader() {
   const [visible, setVisible] = useState(false)
   const [sheetType, setSheetType] = useState<'select' | 'join'>('select')
   const [code, setCode] = useState<string>('')
-  const navigation = useNavigation<LedgerNavigationProp>()
+  const navigation = useNavigation<NavigationProp>()
 
   const { t } = useTranslation()
 

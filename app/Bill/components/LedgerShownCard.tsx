@@ -6,10 +6,11 @@ import { IconSymbol } from '@/components/IconSymbol'
 import { Colors } from '@/constants/Colors'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '@/router'
 
 export default function LedgerShownCard() {
   const { t } = useTranslation()
-  const navigation = useNavigation<any>()
+  const navigation = useNavigation<NavigationProp>()
 
   const color = Colors.dark.text
 

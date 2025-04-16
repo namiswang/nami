@@ -55,7 +55,6 @@ export default {
     ledgerType: 'Ledger Type',
     selectLedgerType: 'Please select ledger type',
     ledgerMembers: 'Ledger Members',
-    viewMembers: 'View Members',
     manageMembers: 'Manage Members',
     addMember: 'Add Member',
     shareLedger: 'Invite code copied! Share with friends.',

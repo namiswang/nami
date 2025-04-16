@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { ImageBackground, Pressable, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { useTranslation } from 'react-i18next'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import { JSwipeableList } from '@/components/JSwipeableList'
 import { JText } from '@/components/JText'
 import { useColors } from '@/hooks/useColor'
 import { JMessage } from '@/components/JMessage'
 import { JView } from '@/components/JView'
-import { LedgerStackParamList } from '@/router/Ledger'
-import { useTranslation } from 'react-i18next'
-
-export type LedgerNavigationProp = StackNavigationProp<LedgerStackParamList>;
+import { NavigationProp } from '@/router'
 
 export default function Ledger() {
   const [list, setList] = useState<any>([])
   const [curLedgerId, setCurLedgerId] = useState('')
 
   const { t } = useTranslation()
-  const navigation = useNavigation<LedgerNavigationProp>()
+  const navigation = useNavigation<NavigationProp>()
   const [
     primaryButtonBackground,
     primaryButtonText,

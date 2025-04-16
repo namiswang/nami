@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { ViewStyle, StyleSheet, ImageBackground, Image, Animated } from 'react-native'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { ViewStyle, StyleSheet, ImageBackground, Image, Animated, TouchableOpacity } from 'react-native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import { JView } from '@/components/JView'
 import { JText } from '@/components/JText'
@@ -14,10 +14,8 @@ import { LedgerTypes } from '@/constants/ledger'
 import { IconSymbol } from '@/components/IconSymbol'
 import { JCopy } from '@/components/JCopy'
 import { useTranslation } from 'react-i18next'
-
-export type LedgerEditorRouteParams = {
-  id?: string
-}
+import { LedgerEditorRouteParams } from '@/router/Ledger'
+import { NavigationProp } from '@/router'
 
 interface ledgerInfo {
   title: string
@@ -68,6 +66,7 @@ export default function LedgerEditor() {
   const [deletingMember, setDeletingMember] = useState<string>()
 
   const { t } = useTranslation()
+  const navigation = useNavigation<NavigationProp>()
   const route = useRoute<RouteProp<{ LedgerEditor: LedgerEditorRouteParams }, 'LedgerEditor'>>()
   const params = route.params
 
@@ -177,12 +176,7 @@ export default function LedgerEditor() {
               value={typeSheetVisible}
               onChange={setTypeSheetVisible}
               trigger={
-                <JView
-                  justify="center"
-                  align="flex-end"
-                  width="full"
-                  height="full"
-                >
+                <JView style={styles.editorItemRight}>
                   <JText size={16} color="#687076">
                     {ledgerInfo.type ? t(`ledger.${ledgerInfo.type}`) : t('ledger.selectLedgerType')}
                   </JText>
@@ -213,6 +207,17 @@ export default function LedgerEditor() {
         />
       </JView>
 
+      <JView borderRadius={8} style={{ overflow: 'hidden' }}>
+        <EditorItem
+          label="类别管理"
+          right={
+            <TouchableOpacity style={styles.editorItemRight} onPress={() => navigation.navigate('Category')}>
+              <IconSymbol name="chevron.right" size={16} color={secondaryText} />
+            </TouchableOpacity>
+          }
+        />
+      </JView>
+
       {type === 'edit' && <JView borderRadius={8} style={{ overflow: 'hidden' }}>
         <EditorItem
           label={t('ledger.ledgerMembers')}
@@ -222,8 +227,8 @@ export default function LedgerEditor() {
               value={memberSheetVisible}
               onChange={setMemberSheetVisible}
               trigger={
-                <JView justify="center" align="flex-end" width="full" height="full">
-                  <JText size={16} color="#687076">{t('ledger.viewMembers')}</JText>
+                <JView style={styles.editorItemRight}>
+                  <IconSymbol name="chevron.right" size={16} color={secondaryText} />
                 </JView>
               }
               children={(
@@ -388,8 +393,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0'
   },
+  editorItemRight: {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    width: '100%',
+    height: '100%'
+  },
   memberCard: {
-    // backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
