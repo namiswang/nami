@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { JView } from '@/components/JView'
-import { ReactNode } from 'react'
 import { useDrawerStore } from '@/store'
 
-interface Props {
-  content: ReactNode
-}
-
-export function DynamicDrawer({ content }: Props) {
+export default function DynamicDrawer() {
   const { drawerContent } = useDrawerStore()
 
   return (

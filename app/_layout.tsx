@@ -15,17 +15,18 @@ import { useDrawerStore, useSettingStore } from '@/store'
 import { HapticTab } from '@/components/HapticTab'
 import { IconSymbol } from '@/components/IconSymbol'
 import { AddBillButton } from '@/components/AddBillButton'
-import { DynamicDrawer } from '@/components/DynamicDrawer'
-import { Bill } from '@/app/Bill'
-import { Wallet } from '@/app/Wallet'
-import { BillHeader } from '@/app/Bill/components/BillHeader'
-import { WalletHeader } from '@/app/Wallet/components/WalletHeader'
+import DynamicDrawer from '@/components/DynamicDrawer'
+import Bill from '@/app/Bill'
+import Wallet from '@/app/Wallet'
+import BillHeader from '@/app/Bill/components/BillHeader'
+import WalletHeader from '@/app/Wallet/components/WalletHeader'
+import LedgerStack from '@/router/Ledger'
+import { createStackNavigator } from '@react-navigation/stack'
 
 SplashScreen.preventAutoHideAsync()
 
 export type DrawerNavigator = {
   Tabs: undefined
-  BillEditor: undefined
 }
 
 export type BottomTabNavigator = {
@@ -34,15 +35,24 @@ export type BottomTabNavigator = {
   Wallet: undefined
 }
 
+// 在 DrawerNavigator 和 BottomTabNavigator 类型定义后添加
+export type RootStackParamList = {
+  Root: undefined
+  Ledger: undefined
+}
+
 const Drawer = createDrawerNavigator<DrawerNavigator>()
 const Tab = createBottomTabNavigator<BottomTabNavigator>()
 
+const RootStack = createStackNavigator<RootStackParamList>()
+
+// 修改 RootLayout return 部分
 export default function RootLayout() {
   const { mode, setMode } = useSettingStore()
   const colorScheme = useColorScheme()
   const navigationRef = useNavigationContainerRef()
 
-  const { drawerContent, drawerOptions } = useDrawerStore()
+  const { drawerOptions } = useDrawerStore()
 
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
@@ -65,27 +75,51 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={mode === 'dark' ? DarkTheme : DefaultTheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer.Navigator
-          initialRouteName="Tabs"
-          drawerContent={() => <DynamicDrawer content={drawerContent} />}
-          screenOptions={drawerOptions}
+        <RootStack.Navigator
+          screenOptions={{
+            headerShown: false,
+            presentation: 'modal',
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }}
         >
-          <Drawer.Screen
-            name="Tabs"
-            component={TabsNavigator}
-            options={{ headerShown: false }}
+          <RootStack.Screen
+            name="Root"
+            component={DrawerNavigator}
           />
-        </Drawer.Navigator>
+
+          <RootStack.Screen
+            name="Ledger"
+            component={LedgerStack}
+            options={{
+              animation: 'slide_from_right'
+            }}
+          />
+        </RootStack.Navigator>
       </GestureHandlerRootView>
 
       <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />
-
-      <Toast
-        config={{
-          success: (props: any) => <CustomToast {...props} />
-        }}
-      />
+      <Toast config={{ success: (props: any) => <CustomToast {...props} /> }} />
     </ThemeProvider>
+  )
+}
+
+// 将原来的 Drawer.Navigator 封装成组件
+function DrawerNavigator() {
+  const { drawerOptions } = useDrawerStore()
+
+  return (
+    <Drawer.Navigator
+      initialRouteName="Tabs"
+      drawerContent={DynamicDrawer}
+      screenOptions={drawerOptions}
+    >
+      <Drawer.Screen
+        name="Tabs"
+        component={TabsNavigator}
+        options={{ headerShown: false }}
+      />
+    </Drawer.Navigator>
   )
 }
 
@@ -105,8 +139,8 @@ function TabsNavigator() {
         name="Bill"
         component={Bill}
         options={{
-          header: (props) => <BillHeader />,
-          tabBarIcon: ({ color, size }) => <IconSymbol color={color} name="house.fill" size={24} />,
+          header: BillHeader,
+          tabBarIcon: ({ color, size }) => <IconSymbol color={color} name="house.fill" size={size} />,
           tabBarButton: (props) => <HapticTab {...props} />
         }}
       />

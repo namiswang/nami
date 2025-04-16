@@ -8,7 +8,7 @@ import { JInput } from '@/components/JInput'
 
 export default function Verify() {
   const [password, setPassword] = useState('')
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
+  const [errorMsg, setErrorMsg] = useState<string>()
 
   const inputRef = useRef<TextInput>(null)
 
@@ -22,7 +22,7 @@ export default function Verify() {
       return
     }
     console.log(11111, 'username', username)
-    router.replace('/(tabs)')
+    router.replace('/Bill')
   }
 
   return (

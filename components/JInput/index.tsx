@@ -16,6 +16,7 @@ interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   label?: string
   error?: string
   containerStyle?: ViewStyle
+  inputContainerStyle?: ViewStyle
   inputStyle?: TextStyle
   labelStyle?: TextStyle
   errorStyle?: TextStyle
@@ -26,12 +27,14 @@ interface InputProps extends Omit<TextInputProps, 'style' | 'onChange'> {
   clearable?: boolean
   onClear?: () => void
   onChange?: (text: string) => void
+  bordered?: boolean
 }
 
 export const JInput = forwardRef<TextInput, InputProps>(({
   label,
   error,
   containerStyle,
+  inputContainerStyle,
   inputStyle,
   labelStyle,
   errorStyle,
@@ -44,6 +47,7 @@ export const JInput = forwardRef<TextInput, InputProps>(({
   onClear,
   value,
   onChange,
+  bordered = true,
   ...rest
 }, ref) => {
   const [isSecureTextEntry, setIsSecureTextEntry] = useState(secure)
@@ -75,8 +79,15 @@ export const JInput = forwardRef<TextInput, InputProps>(({
 
       <JView style={[
         styles.inputContainer,
+        bordered && {
+          borderWidth: 0.5,
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+          borderColor: 'rgba(228, 230, 233, 0.5)',
+          borderStyle: 'solid'
+        },
         isFocused && { borderColor: 'rgb(228, 230, 233)' },
-        error && { borderColor: dangerText }
+        error && { borderColor: dangerText },
+        inputContainerStyle
       ]}>
         {prefix && (
           <IconSymbol
@@ -159,12 +170,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 0.5,
     borderRadius: 8,
-    paddingHorizontal: 12,
-    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
-    borderColor: 'rgba(228, 230, 233, 0.5)',
-    borderStyle: 'solid'
+    paddingHorizontal: 12
   },
   input: {
     flex: 1,

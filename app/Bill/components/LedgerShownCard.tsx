@@ -5,16 +5,16 @@ import { JText } from '@/components/JText'
 import { IconSymbol } from '@/components/IconSymbol'
 import { Colors } from '@/constants/Colors'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/native'
 
-export function LedgerShownCard() {
+export default function LedgerShownCard() {
   const { t } = useTranslation()
+  const navigation = useNavigation<any>()
 
   const color = Colors.dark.text
 
   return (
-    <Pressable onPress={() => {
-      // TODO - skip to ledger page
-    }}>
+    <Pressable onPress={() => navigation.navigate('Ledger')}>
       <ImageBackground
         source={require('@/assets/images/partial-react-logo.png')}
         style={styles.container}
@@ -56,6 +56,7 @@ export function LedgerShownCard() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
+    width: 370,
     height: 140,
     borderRadius: 16,
     overflow: 'hidden',

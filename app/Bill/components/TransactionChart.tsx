@@ -1,14 +1,13 @@
 import { JView } from '@/components/JView'
 import { JChart } from '@/components/JChart'
 import dayjs from 'dayjs'
-import { t } from 'i18next'
 import { JText } from '@/components/JText'
 import React, { useState } from 'react'
 import { useColor } from '@/hooks/useColor'
 import { IconSymbol } from '@/components/IconSymbol'
 import { useTranslation } from 'react-i18next'
 
-export function TransactionChart() {
+export default function TransactionChart() {
   const [viewWidth, setViewWidth] = useState(0)
 
   const { t } = useTranslation()

@@ -1,66 +1,45 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { JText } from '@/components/JText'
 import { JButton } from '@/components/JButton'
 import { IconSymbol } from '@/components/IconSymbol'
-import { JView } from '@/components/JView'
-import { useColor } from '@/hooks/useColor'
 import { useDrawerStore } from '@/store'
+import MenuSider from '@/components/MenuSider'
+import HeaderLayout from '@/components/HeaderLayout'
 
-export function BillHeader() {
+export default function BillHeader() {
   const navigation = useNavigation<any>()
   const { setDrawerContent, setDrawerOptions } = useDrawerStore()
-  const headerBackground = useColor('elevatedBackground')
 
   return (
-    <JView
-      style={{
-        justifyContent: 'flex-end',
-        height: 100,
-        paddingHorizontal: 10,
-        paddingBottom: 5,
-        backgroundColor: headerBackground
-      }}
-    >
-      <JView
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}
-      >
-        <JView style={{ width: '25%' }}>
-          <JButton
-            width={20}
-            height={20}
-            variant="text"
-            text={<IconSymbol name="text.justify" size={24} />}
-            onPress={() => {
-              setDrawerOptions({
-                drawerType: 'front',
-                drawerPosition: 'left',
-                drawerStyle: { width: 300 }
-              })
-              setDrawerContent(<JText>menu drawer</JText>)
-              navigation.openDrawer()
-            }}
-          />
-        </JView>
-
-        <JView row align="center">
+    <HeaderLayout
+      left={
+        <JButton
+          width={20}
+          height={20}
+          variant="text"
+          text={<IconSymbol name="text.justify" size={24} />}
+          onPress={() => {
+            setDrawerOptions({
+              drawerType: 'front',
+              drawerPosition: 'left',
+              drawerStyle: { width: 300 }
+            })
+            setDrawerContent(<MenuSider />)
+            navigation.openDrawer()
+          }}
+        />
+      }
+      middle={
+        <>
           <JText bold size={16} marginRight={4}>
             2025-01-01
           </JText>
           <IconSymbol name="chevron.down" size={16} />
-        </JView>
-
-        <JView
-          style={{
-            width: '25%',
-            flexDirection: 'row',
-            justifyContent: 'flex-end'
-          }}
-        >
+        </>
+      }
+      right={
+        <>
           <JButton
             width={20}
             height={20}
@@ -76,8 +55,8 @@ export function BillHeader() {
             text={<IconSymbol name="chart.line.uptrend.xyaxis" size={24} />}
             onPress={() => void 0}
           />
-        </JView>
-      </JView>
-    </JView>
+        </>
+      }
+    />
   )
 }

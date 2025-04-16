@@ -7,8 +7,8 @@ export type ThemedViewProps = ViewProps & {
   row?: boolean
   justify?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
   align?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline'
-  width?: number
-  height?: number
+  width?: number | 'full'
+  height?: number | 'full'
   margin?: number
   marginHorizontal?: number
   marginVertical?: number
@@ -24,6 +24,7 @@ export type ThemedViewProps = ViewProps & {
   paddingLeft?: number
   paddingRight?: number
   borderRadius?: number
+  background?: string
 };
 
 export function JView({
@@ -50,6 +51,7 @@ export function JView({
   paddingRight = undefined,
   borderRadius = 0,
   style,
+  background = undefined,
   ...otherProps
 }: ThemedViewProps) {
   const backgroundColor = useColor('pageBackground')
@@ -61,8 +63,8 @@ export function JView({
         flexDirection: row ? 'row' : 'column',
         justifyContent: justify,
         alignItems: align,
-        width,
-        height,
+        width: width === 'full' ? '100%' : width,
+        height: height === 'full' ? '100%' : height,
         margin: margin !== undefined ? margin : undefined,
         marginHorizontal: marginHorizontal !== undefined ? marginHorizontal : undefined,
         marginVertical: marginVertical !== undefined ? marginVertical : undefined,
@@ -80,6 +82,7 @@ export function JView({
         borderRadius
       },
       themed && { backgroundColor },
+      background && { backgroundColor: background },
       style
     ]}
     {...otherProps}

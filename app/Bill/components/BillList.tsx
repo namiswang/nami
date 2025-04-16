@@ -1,8 +1,8 @@
-import { JView } from '@/components/JView'
-import { BillCard } from '@/app/Bill/components/BillCard'
 import { useEffect, useState } from 'react'
+import { JView } from '@/components/JView'
+import BillCard from '@/app/Bill/components/BillCard'
 
-export function BillList() {
+export default function BillList() {
   const [list, setList] = useState<Record<string, any>[]>([])
 
   useEffect(() => {

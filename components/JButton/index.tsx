@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderStyle: 'solid',
-    boxShadow: '0 1px 2px rgba(128, 128, 128, 0.2)'
+    boxShadow: '0px 0.5px 3px rgba(128, 128, 128, 0.2)'
   },
   textButton: {
     backgroundColor: 'transparent',

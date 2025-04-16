@@ -1,0 +1,1 @@
+export const LedgerTypes = ['daily', 'travel', 'investment'] as const
