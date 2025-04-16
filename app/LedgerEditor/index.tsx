@@ -13,6 +13,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { LedgerTypes } from '@/constants/ledger'
 import { IconSymbol } from '@/components/IconSymbol'
 import { JCopy } from '@/components/JCopy'
+import { useTranslation } from 'react-i18next'
 
 export type LedgerEditorRouteParams = {
   id?: string
@@ -21,7 +22,7 @@ export type LedgerEditorRouteParams = {
 interface ledgerInfo {
   title: string
   cover: string
-  type: typeof LedgerTypes[number]['key']
+  type: typeof LedgerTypes[number]
   code: string
   members: {
     id: string
@@ -39,7 +40,7 @@ export default function LedgerEditor() {
     title: '',
     cover: '',
     type: 'daily',
-    code: '邀请码',
+    code: '111222',
     members: [
       {
         id: '1',
@@ -66,6 +67,7 @@ export default function LedgerEditor() {
   const [memberSheetVisible, setMemberSheetVisible] = useState(false)
   const [deletingMember, setDeletingMember] = useState<string>()
 
+  const { t } = useTranslation()
   const route = useRoute<RouteProp<{ LedgerEditor: LedgerEditorRouteParams }, 'LedgerEditor'>>()
   const params = route.params
 
@@ -112,13 +114,13 @@ export default function LedgerEditor() {
         cover: selectedImage.uri
       }))
     } catch (error) {
-      console.error('选择图片失败:', error)
+      console.error(`${t('ledger.selectCoverFailed')}:`, error)
     }
   }
 
   const handleCreateLedger = () => {
     if (!ledgerInfo.title) {
-      setTitleError('请输入账本名称')
+      setTitleError(t('ledger.inputLedgerName'))
       return
     }
     console.log(1111, 'ledgerInfo', ledgerInfo)
@@ -139,20 +141,22 @@ export default function LedgerEditor() {
           source={{ uri: ledgerInfo.cover }}
           style={[styles.container, { backgroundColor }]}
         >
-          {!ledgerInfo.cover && <JText color={secondaryText}>点击选择封面</JText>}
+          {!ledgerInfo.cover && <JText color={secondaryText}>
+            {t('ledger.selectLedgerCover')}
+          </JText>}
         </ImageBackground>
       </Pressable>
 
       <JView borderRadius={8} style={{ overflow: 'hidden' }}>
         <EditorItem
-          label="名称"
+          label={t('ledger.ledgerName')}
           style={{ borderBottomWidth: 0.5, borderBottomColor: borderColor }}
           right={(
             <JInput
               bordered={false}
               clearable={false}
               textAlign="right"
-              placeholder="请输入账本名称"
+              placeholder={t('ledger.inputLedgerName')}
               containerStyle={{
                 width: '100%',
                 borderWidth: 0,
@@ -167,7 +171,7 @@ export default function LedgerEditor() {
         />
 
         <EditorItem
-          label="类型"
+          label={t('ledger.ledgerType')}
           right={(
             <JSheet
               value={typeSheetVisible}
@@ -180,24 +184,24 @@ export default function LedgerEditor() {
                   height="full"
                 >
                   <JText size={16} color="#687076">
-                    {LedgerTypes.find(item => item.key === ledgerInfo.type)?.label || '请选择账本类型'}
+                    {ledgerInfo.type ? t(`ledger.${ledgerInfo.type}`) : t('ledger.selectLedgerType')}
                   </JText>
                 </JView>
               }
               children={(
                 <>
                   <JText size={16} bold style={{ marginBottom: 20 }}>
-                    选择账本类型
+                    {t('ledger.selectLedgerType')}
                   </JText>
 
                   {LedgerTypes.map((item) => (
                     <JButton
-                      type={item.key === ledgerInfo.type ? 'primary' : 'normal'}
+                      type={item === ledgerInfo.type ? 'primary' : 'normal'}
                       height={60}
-                      key={item.key}
-                      text={item.label}
+                      key={item}
+                      text={t(`ledger.${item}`)}
                       onPress={() => {
-                        setLedgerInfo(prev => ({ ...prev, type: item.key }))
+                        setLedgerInfo(prev => ({ ...prev, type: item }))
                         setTypeSheetVisible(false)
                       }}
                     />
@@ -211,7 +215,7 @@ export default function LedgerEditor() {
 
       {type === 'edit' && <JView borderRadius={8} style={{ overflow: 'hidden' }}>
         <EditorItem
-          label="成员管理"
+          label={t('ledger.ledgerMembers')}
           style={{ borderBottomWidth: 0.5, borderBottomColor: borderColor }}
           right={(
             <JSheet
@@ -219,17 +223,18 @@ export default function LedgerEditor() {
               onChange={setMemberSheetVisible}
               trigger={
                 <JView justify="center" align="flex-end" width="full" height="full">
-                  <JText size={16} color="#687076">查看成员</JText>
+                  <JText size={16} color="#687076">{t('ledger.viewMembers')}</JText>
                 </JView>
               }
               children={(
                 <JView themed>
                   <JView row justify="space-between" align="center" marginBottom={10}>
-                    <JText bold size={16}>成员管理</JText>
+                    <JText bold size={16}>{t('ledger.manageMembers')}</JText>
                     <JCopy
-                      displayText="添加成员"
+                      displayText={t('ledger.addMember')}
                       copyText={ledgerInfo.code}
-                      copiedText="已复制邀请码，请分享给好友"
+                      // copiedText="已复制邀请码，请分享给好友"
+                      copiedText={t('ledger.shareLedger')}
                     />
                   </JView>
 
@@ -257,7 +262,7 @@ export default function LedgerEditor() {
                           <JView>
                             <JText size={16} bold>{item.name}</JText>
                             <JText size={14} color={secondaryText} style={{ marginTop: 4 }}>
-                              {item.role === 'owner' ? '创建者' : '成员'}
+                              {item.role === 'owner' ? t('ledger.creator') : t('ledger.member')}
                             </JText>
                           </JView>
                         </JView>
@@ -276,16 +281,16 @@ export default function LedgerEditor() {
                             children={
                               <JView padding={16}>
                                 <JText size={16} bold style={{ marginBottom: 20 }}>
-                                  确认删除成员
+                                  {t('ledger.deleteMemberConfirm')}
                                 </JText>
 
                                 <JText style={{ marginBottom: 20 }}>
-                                  确定要将 {item.name} 从账本中移除吗？
+                                  {t('ledger.deleteMemberMessage', { name: item.name })}
                                 </JText>
 
                                 <JButton
                                   type="danger"
-                                  text="确认删除"
+                                  text={t('ledger.delete')}
                                   onPress={() => handleDeleteMember(item.id)}
                                 />
                               </JView>
@@ -310,7 +315,7 @@ export default function LedgerEditor() {
                 type="danger"
                 marginHorizontal={10}
                 style={{ flex: 1 }}
-                text="退出"
+                text={t('ledger.quit')}
                 // onPress={}
               />
             )}
@@ -320,7 +325,7 @@ export default function LedgerEditor() {
                 type="danger"
                 marginHorizontal={10}
                 style={{ flex: 1 }}
-                text="删除"
+                text={t('ledger.delete')}
                 // onPress={}
               />
             )}
@@ -331,7 +336,7 @@ export default function LedgerEditor() {
           type="primary"
           marginHorizontal={10}
           style={{ flex: 1 }}
-          text="保存"
+          text={t('ledger.save')}
           onPress={handleCreateLedger}
         />
       </JView>

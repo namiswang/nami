@@ -7,12 +7,15 @@ import { LedgerNavigationProp } from '@/app/Ledger'
 import { JSheet } from '@/components/JSheet'
 import { JText } from '@/components/JText'
 import { JInput } from '@/components/JInput'
+import { useTranslation } from 'react-i18next'
 
 export default function LedgerHeader() {
   const [visible, setVisible] = useState(false)
   const [sheetType, setSheetType] = useState<'select' | 'join'>('select')
   const [code, setCode] = useState<string>('')
   const navigation = useNavigation<LedgerNavigationProp>()
+
+  const { t } = useTranslation()
 
   const handleJoinLedger = () => {
   }
@@ -23,7 +26,7 @@ export default function LedgerHeader() {
         <>
           <JButton
             height={60}
-            text="新增账本"
+            text={t('ledger.addLedger')}
             onPress={() => {
               setVisible(false)
               setTimeout(() => {
@@ -36,7 +39,7 @@ export default function LedgerHeader() {
             style={{ width: '100%' }}
             type="primary"
             height={60}
-            text="加入账本"
+            text={t('ledger.joinLedger')}
             onPress={() => {
               setSheetType('join')
             }}
@@ -47,13 +50,13 @@ export default function LedgerHeader() {
     return (
       <>
         <JText size={16} bold style={{ marginBottom: 20 }}>
-          加入账本
+          {t('ledger.joinLedger')}
         </JText>
 
         <JInput
           value={code}
           clearable={false}
-          placeholder="请输入账本邀请码"
+          placeholder={t('ledger.inputInviteCode')}
           containerStyle={{ width: '100%' }}
           inputContainerStyle={{ paddingRight: 0 }}
           inputStyle={{ color: '#687076' }}
@@ -61,7 +64,7 @@ export default function LedgerHeader() {
           onPointerEnter={handleJoinLedger}
         />
 
-        <JButton type="primary" text="加入" onPress={handleJoinLedger} />
+        <JButton type="primary" text={t('ledger.joinLedger')} onPress={handleJoinLedger} />
       </>
     )
   }, [sheetType])
@@ -69,7 +72,7 @@ export default function LedgerHeader() {
   return (
     <HeaderLayout
       showBack
-      title="账本"
+      title={t('ledger.ledger')}
       right={(
         <JSheet
           value={visible}

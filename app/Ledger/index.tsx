@@ -9,7 +9,7 @@ import { useColors } from '@/hooks/useColor'
 import { JMessage } from '@/components/JMessage'
 import { JView } from '@/components/JView'
 import { LedgerStackParamList } from '@/router/Ledger'
-import { LedgerTypes } from '@/constants/ledger'
+import { useTranslation } from 'react-i18next'
 
 export type LedgerNavigationProp = StackNavigationProp<LedgerStackParamList>;
 
@@ -17,6 +17,7 @@ export default function Ledger() {
   const [list, setList] = useState<any>([])
   const [curLedgerId, setCurLedgerId] = useState('')
 
+  const { t } = useTranslation()
   const navigation = useNavigation<LedgerNavigationProp>()
   const [
     primaryButtonBackground,
@@ -34,7 +35,7 @@ export default function Ledger() {
 
   const getActions = (itemId: string) => [
     {
-      label: '编辑',
+      label: t('ledger.edit'),
       icon: 'square.and.pencil',
       onPress: () => {
         navigation.navigate('LedgerEditor', { id: itemId })
@@ -44,7 +45,7 @@ export default function Ledger() {
       iconProps: { color: lightNormalColor }
     },
     {
-      label: '删除',
+      label: t('ledger.delete'),
       icon: 'trash',
       onPress: () => console.log('删除'),
       style: { backgroundColor: expense },
@@ -84,7 +85,7 @@ export default function Ledger() {
   const changeLedger = (id: string) => {
     if (curLedgerId === id) return
     setCurLedgerId(id)
-    JMessage.success('切换成功')
+    JMessage.success(t('ledger.switchSuccess'))
   }
 
   return (
@@ -98,7 +99,7 @@ export default function Ledger() {
             <Pressable onPress={() => changeLedger(item.id)}>
               <ImageBackground
                 source={{ uri: item.cover }}
-                style={styles.container}
+                style={{ height: 170 }}
               >
                 {!isActive && <JView style={styles.overlay} />}
 
@@ -121,7 +122,7 @@ export default function Ledger() {
                       color={primaryButtonText}
                       style={{ letterSpacing: 1 }}
                     >
-                      {LedgerTypes.find(i => i.key === item.type)?.label || '未知'}
+                      {item.type ? t(`ledger.${item.type}`) : t('ledger.unknown')}
                     </JText>
                   </JView>
 
@@ -147,11 +148,6 @@ export default function Ledger() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: 170,
-    // borderRadius: 12,
-    // overflow: 'hidden'
-  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
